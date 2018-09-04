@@ -2,16 +2,19 @@
   "name": "parody",
   "version": "1.0.0",
   "description": "parody of linkedin",
-  "main": "index.js",
+  "main": "server-dest/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server-dest/server.js",
+    "test": "mocha --reporter progress \"server-dest/**/*.test.js\"",
+    "build:js": "babel server-src -d server-dest --presets env"
   },
   "author": "Satinder Kaur",
   "license": "",
   "devDependencies": {
-    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "mocha": "^5.2.0"
   }
 }
