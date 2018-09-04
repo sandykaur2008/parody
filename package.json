@@ -5,7 +5,7 @@
   "main": "server-dest/server.js",
   "scripts": {
     "start": "node server-dest/server.js",
-    "test": "mocha --reporter progress \"server-dest/**/*.test.js\"",
+    "test": "mocha test/server.test.js",
     "build:js": "babel server-src -d server-dest --presets env"
   },
   "author": "Satinder Kaur",
@@ -14,7 +14,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
-    "chai-http": "^4.2.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "request": "^2.88.0"
   }
 }
