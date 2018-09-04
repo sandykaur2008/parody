@@ -1,0 +1,17 @@
+{
+  "name": "parody",
+  "version": "1.0.0",
+  "description": "parody of linkedin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Satinder Kaur",
+  "license": "",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
