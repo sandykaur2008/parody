@@ -5,7 +5,7 @@
   "main": "server-dest/server.js",
   "scripts": {
     "start": "node server-dest/server.js",
-    "test": "mocha test/server.test.js",
+    "test": "mocha test/test.js",
     "build:js": "babel server-src -d server-dest --presets env"
   },
   "author": "Satinder Kaur",
