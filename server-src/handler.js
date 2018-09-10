@@ -1,8 +1,13 @@
 var utils = require('./utilities');
+var fs = require('fs');
+var ejs = require('ejs');
+const templatePath = `${__dirname}/../public/views/index.ejs`; 
+var htmlData = fs.readFileSync(templatePath, 'utf-8');
+var htmlRender = ejs.render(htmlData, {filename: templatePath, title:'Home'});
 
 var actions = {
   'GET': (request, response) => {
-    utils.sendResponse(response, 'Hello World', 200, {'Content-Type': 'text/plain'}); 
+    utils.sendResponse(response, htmlRender, 200, {'Content-Type': 'text/html'}); 
   },
   'POST': (request, response) => {
     utils.collectData(request, (formattedData) => {

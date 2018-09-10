@@ -29,14 +29,14 @@ describe('utilities functionality', function () {
 
   it('should return body of request', function(done) {
     request.get('http://localhost:8080', function (err, res){
-      expect(res.body).to.equal('Hello World');
+      expect(res.body).to.include('Welcome');
       done();
     });
   });
 
   it('should return headers of request', function(done) {
     request.get('http://localhost:8080', function (err, res){
-      expect(res.headers).to.include({ 'content-type': 'text/plain' });
+      expect(res.headers).to.include({ 'content-type': 'text/html' });
       done();
     });
   });
