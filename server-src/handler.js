@@ -4,6 +4,7 @@ var ejs = require('ejs');
 const templatePath = `${__dirname}/../public/views/index.ejs`; 
 var htmlData = fs.readFileSync(templatePath, 'utf-8');
 var htmlRender = ejs.render(htmlData, {filename: templatePath, title:'Home'});
+const nodemailer = require('nodemailer'); 
 
 var actions = {
   'GET': (request, response) => {
@@ -11,11 +12,34 @@ var actions = {
   },
   'POST': (request, response) => {
     utils.collectData(request, (formattedData) => {
-      //do something
-      utils.sendResponse(response, 'Success', 200, {'Content-Type': 'text/plain'});
+      nodemailer.createTestAccount((err, account) => {
+        let transporter = nodemailer.createTransport({
+          host: 'smtp.ethereal.email',
+          port: 587,
+          secure: false,
+          auth: {
+            user: account.user,
+            pass: account.pass
+          }
+        }); 
+        let mailOptions = {
+          from: formattedData.email,
+          to: 'sandykaur2008@gmail.com',
+          subject: 'feedback',
+          text: 'Message from' + formattedData.fullname + formattedData.message,
+        }; 
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+          console.log('Message sent: %s', mailOptions.text);
+        }); 
+      });
+      utils.sendResponse(response, 'Success', 302, {'Content-Type': 'text/html'});
     });
   }
 }; 
+
 
 module.exports = (request, response) => {
   var action = actions[request.method];
