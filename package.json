@@ -4,7 +4,7 @@
   "description": "parody of linkedin",
   "main": "server-dest/server.js",
   "scripts": {
-    "start": "node server-dest/server.js",
+    "start": "node app.js",
     "test": "mocha test/test.js",
     "build:js": "babel server-src -d server-dest --presets env"
   },
@@ -20,6 +20,7 @@
     "request": "^2.88.0"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "nodemailer-mock-transport": "^1.3.0",
     "npm-user-validate": "^1.0.0"
   }
