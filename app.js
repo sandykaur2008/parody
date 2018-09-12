@@ -1,3 +1,4 @@
+'use strict'; 
 const express = require('express');
 const app = express(); 
 const bodyParser = require('body-parser'); 
@@ -7,7 +8,10 @@ const session = require('express-session');
 const flash= require('connect-flash'); 
 const dotenv = require('dotenv');
 
-dotenv.config();   
+dotenv.config();  
+const env = process.env.NODE_ENV; 
+const envString = env.toUpperCase(); 
+const port = process.env['PORT_' + envString]; 
 
 app.set('views', './src/views'); 
 app.set('view engine', 'ejs'); 
@@ -22,6 +26,9 @@ app.use(flash());
 app.use('/', mainRouter); 
 app.use('/auth', authRouter); 
 
-app.listen(4000, function(){
-  console.log('listening on port 4000'); 
+
+const server = app.listen(port, function(){
+  console.log('listening on port ' + `${port}`); 
 }); 
+
+module.exports = server; 

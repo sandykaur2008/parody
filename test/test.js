@@ -1,22 +1,21 @@
 'use strict';
-
-var server = require('../server-dest/server.js'), 
+var server = require('../app'), 
     expect = require('chai').expect,
     request = require('request'), 
     nodemailer = require('nodemailer'),
-    mockTransport = require('nodemailer-mock-transport'); 
+    mockTransport = require('nodemailer-mock-transport');
 
 describe('server response', function () {
 
   it('should return 404', function(done) {
-    request.get('http://localhost:8080/fake', function (err, res){
+    request.get('http://localhost:3002/fake', function (err, res){
       expect(res.statusCode).to.equal(404);
       done();
     }); 
   }); 
 
   it('should return 200', function(done) {
-    request.get('http://localhost:8080', function (err, res){
+    request.get('http://localhost:3002', function (err, res){
       expect(res.statusCode).to.equal(200);
       done();
     });
@@ -24,30 +23,30 @@ describe('server response', function () {
 
   it('should return 302', function(done) {
     request.post({
-      url: 'http://localhost:8080',
-      form: { message: "hello", fullname: "sandy kay", email: "example@email.com" }}, function (err, res) {
+      url: 'http://localhost:3002',
+      form: { message: "hello", fullname: "sandy kay", email: "sk595@georgetown.com" }}, function (err, res) {
       expect(res.statusCode).to.equal(302);
       done();
     }); 
   });
 }); 
 
-describe('utilities functionality', function () {
+describe('response contents', function () {
 
   after(function () {
     server.close();
    });
 
   it('should check body of request', function(done) {
-    request.get('http://localhost:8080', function (err, res){
+    request.get('http://localhost:3002', function (err, res){
       expect(res.body).to.include('Welcome');
       done();
     });
   });
 
   it('should check headers of request', function(done) {
-    request.get('http://localhost:8080', function (err, res){
-      expect(res.headers).to.include({ 'content-type': 'text/html' });
+    request.get('http://localhost:3002', function (err, res){
+      expect(res.headers).to.include({ 'content-type': 'text/html; charset=utf-8' });
       done();
     });
   });

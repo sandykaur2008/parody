@@ -3,3 +3,4 @@ node_modules
 parody.code-workspace 
 server-dest
 .env
+.env.test 

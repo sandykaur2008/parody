@@ -2,10 +2,10 @@
   "name": "parody",
   "version": "1.0.0",
   "description": "parody of linkedin",
-  "main": "server-dest/server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha test/test.js",
+    "start": "NODE_ENV=development node app.js",
+    "test": "NODE_ENV=test mocha test/test.js",
     "build:js": "babel server-src -d server-dest --presets env"
   },
   "author": "Satinder Kaur",
