@@ -14,7 +14,10 @@
       <h1>Have Questions?</h1>
       <p>If you have any questions/comments, just fill out the below form
       to send to the administrator of the site.</p>
-      <form method="post" action=".">
+      <% if (messages) { %>
+        <p><%= messages %></p>
+      <% } %>
+      <form name='contactForm' method="post" action=".">
         Questions/Comments:
         <textarea name="message" rows="10" cols="30"></textarea>
         Full Name:
