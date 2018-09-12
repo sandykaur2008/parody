@@ -17,6 +17,9 @@
       <% if (messages) { %>
         <p><%= messages %></p>
       <% } %>
+      <% for (var i=0; i < errors.length; i++) { %>
+        <li><%= errors[i].msg %></li>
+      <% } %> 
       <form name='contactForm' method="post" action=".">
         Questions/Comments:
         <textarea name="message" rows="10" cols="30"></textarea>

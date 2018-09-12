@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router(); 
 const nodemailer = require('nodemailer'); 
 const dotenv = require('dotenv');
+const { body, validationResult } = require('express-validator/check'); 
 
 dotenv.config();  
 const env = process.env.NODE_ENV; 
@@ -11,11 +12,26 @@ const envString = env.toUpperCase();
 router.get('/', (req, res) => {
   res.render('index', {
     title: 'Home',
-    messages: req.flash('msg')
+    messages: req.flash('msg'),
+    errors: []
   }); 
 }); 
 
-router.post('/', (req, res) => {
+router.post('/', [
+  body('message', 'Empty Message Field').not().isEmpty().trim().escape(), 
+  body('fullname', 'Empty Name Field').not().isEmpty().trim().escape(),
+  body('email', 'Invalid Email').isEmail().normalizeEmail()
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const update = errors.array(); 
+    console.log(update); 
+    return res.render('index', {
+      title: 'Home',
+      messages: req.flash('msg'),
+      errors: update 
+    }); 
+  }
   let smtpTrans = nodemailer.createTransport({
     host: process.env['MAIL_SERVER_' + envString],  
     port: process.env['MAIL_PORT_' + envString],
