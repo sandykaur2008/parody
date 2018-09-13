@@ -1,6 +1,7 @@
 'use strict'; 
 const express = require('express');
 const { MongoClient } = require('mongodb'); 
+const debug = require('debug')('app:authRoutes');
 const passport = require('passport'); 
 const { body, validationResult } = require('express-validator/check'); 
 
@@ -31,6 +32,7 @@ function router() {
         const { username, password } = req.body; 
         const url = 'mongodb://localhost:27017'; 
         const dbName = 'libraryApp'; 
+
         (async function addUser() {
           let client;
           try {
@@ -39,11 +41,12 @@ function router() {
             const col = db.collection('users'); 
             const user = { username, password };
             const results = await col.insertOne(user);
+            debug(results); 
             req.login(results.ops[0], () => {
               res.redirect('/auth/profile');
             }); 
           } catch (err) {
-              console.log(err); 
+              debug(err); 
             }
           }()); 
       }); 
@@ -70,7 +73,6 @@ function router() {
       res.json(req.user); 
     }); 
   return authRouter; 
-}
-
+  } 
 
 module.exports = router; 

@@ -2,13 +2,14 @@
 const express = require('express');
 const app = express(); 
 const bodyParser = require('body-parser'); 
-const mainRouter = require('./src/routes/mainRoutes')(); 
-const authRouter = require('./src/routes/authRoutes')();  
 const session = require('express-session');
 const flash= require('connect-flash'); 
 const dotenv = require('dotenv');
 const passport = require('passport'); 
+const debug = require('debug')('app'); 
 const cookieParser = require('cookie-parser'); 
+const mainRouter = require('./src/routes/mainRoutes')(); 
+const authRouter = require('./src/routes/authRoutes')();  
 
 dotenv.config();  
 const env = process.env.NODE_ENV; 
@@ -26,7 +27,7 @@ app.use(session({
 require('./src/config/passport.js')(app); 
 app.use(flash()); 
 app.use('/', mainRouter); 
-app.use('/auth/', authRouter); 
+app.use('/auth', authRouter); 
 app.set('views', './src/views'); 
 app.set('view engine', 'ejs'); 
 

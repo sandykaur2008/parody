@@ -12,7 +12,7 @@
       <% for (var i=0; i < errors.length; i++) { %>
         <li><%= errors[i].msg %></li>
       <% } %> 
-      <form name='registerForm' method="post" action=".">
+      <form name='registerForm' method="post" action="/auth/register">
         Username:
         <input type='text' name="username"/>
         Password:
