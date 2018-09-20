@@ -9,9 +9,9 @@
     </header>
     <main>
       <h1>Login</h1>
-      <% for (var i=0; i < errors.length; i++) { %>
-        <li><%= errors[i].msg %></li>
-      <% } %> 
+      <% if (message) { %>
+        <p><%= message %></p>
+      <% } %>
       <form name='loginForm' method="post" action="/auth/login">
         Username:
         <input type='text' name="username"/>

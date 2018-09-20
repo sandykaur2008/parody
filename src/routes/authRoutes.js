@@ -17,8 +17,14 @@ function router() {
     }) 
     .post([
       body('username', 'Empty Username Field').not().isEmpty().trim().escape(), 
-      body('password', 'Password must be at least 5 characters').isLength({ min: 5}),
-      body('password2', 'Password must match').equals(body('password'))
+      body('password', 'Password must be at least 5 characters').isLength({ min: 5})
+            .custom((value, {req, loc, path}) => {
+              if (value !== req.body.password2) {
+                throw new Error('Passwords do not match');
+              } else {
+                return value;
+              }
+            })
       ], (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -31,7 +37,7 @@ function router() {
         }
         const { username, password } = req.body; 
         const url = 'mongodb://localhost:27017'; 
-        const dbName = 'libraryApp'; 
+        const dbName = 'parodyApp'; 
 
         (async function addUser() {
           let client;
@@ -53,13 +59,14 @@ function router() {
   authRouter.route('/login')
    .get((req, res) => {
      res.render('login', {
-       title: 'Login',
-       errors: []
+       title: 'Login', 
+       message: req.flash('error')
       }); 
     }) 
    .post(passport.authenticate('local', {
      successRedirect: '/auth/profile',
-     failureRedirect: '/auth/login'
+     failureRedirect: '/auth/login',
+     failureFlash: true
     }));  
   authRouter.route('/profile')
     .all((req, res, next) => {

@@ -44,7 +44,7 @@ function router() {
           }
         });
         let mailOpts = {
-          from: (req.body.fullname + ' &lt;' + req.body.email + '&gt;'),
+          from: req.body.email, 
           to: process.env['MAIL_USERNAME_' + envString],
           subject: 'Parody site message!',
           text: `${req.body.fullname} (${req.body.email}) says: ${req.body.message}`

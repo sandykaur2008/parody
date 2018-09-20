@@ -90,7 +90,7 @@ describe('check form validation', function () {
     server.close();
    });
 
-  it('should validate contact form', function(done) {
+  it('contact form should be invalid', function(done) {
     request.post({
       url: 'http://localhost:3002',
       form: { message: "hello", fullname: "sandy kay", email: "sk595" }}, function (err, res) {
@@ -98,8 +98,20 @@ describe('check form validation', function () {
           console.log(err); 
         }
         expect(res.statusCode).to.equal(200);
-        expect(res.body).include('Invalid Email'); 
-        done();
+        expect(res.body).to.include('Invalid Email'); 
+        done(); 
     });
   }); 
-});  
+
+  it('registration form should be invalid', function(done) {
+    request.post({
+    url: 'http://localhost:3002/auth/register',
+    form: { username: "jack", password: "12345", password2: "123456"}}, function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      expect(res.body).to.include('Passwords do not match'); 
+      done(); 
+    }); 
+  }); 
+}); 

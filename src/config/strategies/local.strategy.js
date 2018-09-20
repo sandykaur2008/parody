@@ -10,7 +10,7 @@ function localStrategy() {
       passwordField: 'password'
     }, (username, password, done) => {
       const url = 'mongodb://localhost:27017';
-      const dbName = 'libraryApp'; 
+      const dbName = 'parodyApp'; 
       (async function mongo() {
         let client;
 
@@ -22,10 +22,13 @@ function localStrategy() {
 
           const user = await col.findOne({ username }); 
 
-          if (user.password === password) {
+          if (user === null) {
+            done(null, false, {message: 'invalid username'}); 
+          }
+          else if (user.password === password) {
             done(null, user); 
           } else {
-            done(null, false); 
+            done(null, false, {message: 'invalid password'}); 
           }
         } catch (err) {
           console.log(err.stack); 
@@ -33,6 +36,6 @@ function localStrategy() {
         client.close(); 
       }()); 
     }));  
-} 
+}
 
 module.exports = localStrategy; 
