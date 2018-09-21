@@ -79,6 +79,11 @@ function router() {
     .get((req, res) => {
       res.json(req.user); 
     }); 
+  authRouter.route('/logout')
+    .get('/logout', function(req, res){
+      req.logout();
+      res.redirect('/'); 
+    }); 
   return authRouter; 
   } 
 

@@ -84,7 +84,7 @@ describe('email functionality', function () {
   });
 })
 
-describe('check form validation', function () {
+describe('check form functionality', function () {
 
   after(function () {
     server.close();
@@ -111,6 +111,18 @@ describe('check form validation', function () {
         console.log(err);
       }
       expect(res.body).to.include('Passwords do not match'); 
+      done(); 
+    }); 
+  }); 
+  it('login form should redirect', function(done) {
+    request.post({
+    url: 'http://localhost:3002/auth/login',
+    form: { username: "sandykaur200", password: "history2012"}}, function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      expect(res.statusCode).to.equal(302); 
+      expect(res.body).to.include('Redirecting to /auth/login');
       done(); 
     }); 
   }); 
