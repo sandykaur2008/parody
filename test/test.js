@@ -100,7 +100,7 @@ describe('check validation (invalid entries)', function () {
     });
   }); 
 
-  it('registration form should be invalid', function(done) {
+  it('registration form should be invalid due to mismatching passwords', function(done) {
     request.post({
     url: 'http://localhost:3002/auth/register',
     form: { username: "jack", password: "12345", password2: "123456"}}, function (err, res) {
@@ -109,6 +109,19 @@ describe('check validation (invalid entries)', function () {
       }
       expect(res.statusCode).to.equal(200);
       expect(res.body).to.include('Passwords do not match'); 
+      done(); 
+    }); 
+  }); 
+
+  it('registration form should be invalid due to already taken username', function(done) {
+    request.post({
+    url: 'http://localhost:3002/auth/register',
+    form: { username: "jack", password: "12345", password2: "12345"}}, function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      expect(res.statusCode).to.equal(200);
+      expect(res.body).to.include('Username already taken'); 
       done(); 
     }); 
   }); 

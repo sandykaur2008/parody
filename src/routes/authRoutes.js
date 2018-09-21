@@ -46,14 +46,20 @@ function router() {
             const db = client.db(dbName); 
             const col = db.collection('users'); 
             const user = { username, password };
-            const results = await col.insertOne(user);
-            debug(results); 
-            req.login(results.ops[0], () => {
-              res.redirect('/auth/profile');
-            }); 
+            const exists = await col.findOne({username: user.username}); 
+            console.log(exists);  
+            if (exists === null) {
+              const results = await col.insertOne(user);
+              req.login(results.ops[0], () => {
+                res.redirect('/auth/profile');
+              });} else {
+                return res.render('register', {
+                  title: 'Register',
+                  errors: [{msg: 'Username already taken!'}]}); 
+              } 
           } catch (err) {
-              debug(err); 
-            }
+            debug(err); 
+          }
           }()); 
       }); 
   authRouter.route('/login')
