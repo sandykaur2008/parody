@@ -3,7 +3,8 @@ var server = require('../app'),
     expect = require('chai').expect,
     request = require('request'), 
     nodemailer = require('nodemailer'),
-    mockTransport = require('nodemailer-mock-transport');
+    mockTransport = require('nodemailer-mock-transport'),
+    superTest = require('supertest'); 
 
 describe('server response', function () {
 
@@ -84,11 +85,7 @@ describe('email functionality', function () {
   });
 })
 
-describe('check form functionality', function () {
-
-  after(function () {
-    server.close();
-   });
+describe('check validation (invalid entries)', function () {
 
   it('contact form should be invalid', function(done) {
     request.post({
@@ -110,11 +107,13 @@ describe('check form functionality', function () {
       if (err) {
         console.log(err);
       }
+      expect(res.statusCode).to.equal(200);
       expect(res.body).to.include('Passwords do not match'); 
       done(); 
     }); 
   }); 
-  it('login form should redirect', function(done) {
+
+  it('login form should be invalid and redirect', function(done) {
     request.post({
     url: 'http://localhost:3002/auth/login',
     form: { username: "sandykaur200", password: "history2012"}}, function (err, res) {
@@ -127,3 +126,25 @@ describe('check form functionality', function () {
     }); 
   }); 
 }); 
+
+describe('check validation (valid entries)', function () {
+
+  after(function () {
+    server.close();
+   });
+
+  it('should login/logout user', function (done) {
+    request.post({
+      url: 'http://localhost:3002/auth/login',
+      form: {username: "sandykaur2008", password: "history2012"}}, function (err, res){
+        if (err) {
+          console.log(err); 
+        }
+        expect(res.statusCode).to.equal(302);
+        expect(res.body).to.include('Redirecting to /auth/profile');
+        done(); 
+    }); 
+  }); 
+}); 
+  
+

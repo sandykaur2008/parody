@@ -80,7 +80,7 @@ function router() {
       res.json(req.user); 
     }); 
   authRouter.route('/logout')
-    .get('/logout', function(req, res){
+    .get((req, res) => {
       req.logout();
       res.redirect('/'); 
     }); 

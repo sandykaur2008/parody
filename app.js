@@ -26,6 +26,10 @@ app.use(session({
 })); 
 require('./src/config/passport.js')(app); 
 app.use(flash()); 
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 app.use('/', mainRouter); 
 app.use('/auth', authRouter); 
 app.set('views', './src/views'); 

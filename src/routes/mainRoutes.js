@@ -16,7 +16,8 @@ function router() {
       res.render('index', {
         title: 'Home',
         messages: req.flash('msg'),
-        errors: []
+        errors: [],
+        user: req.user
       }); 
     }) 
     .post([
