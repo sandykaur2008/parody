@@ -75,16 +75,16 @@ function router() {
      failureFlash: true
     }));  
   authRouter.route('/profile')
-    .all((req, res, next) => {
+    .get((req, res) => {
       if (req.user) {
-        next(); 
+        res.render('profile', {
+          title: 'Profile', 
+          username: req.user.username
+        }); 
       } else {
         res.redirect('/'); 
       }
-    }) 
-    .get((req, res) => {
-      res.json(req.user); 
-    }); 
+    });  
   authRouter.route('/logout')
     .get((req, res) => {
       req.logout();
