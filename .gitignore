@@ -4,3 +4,6 @@ parody.code-workspace
 server-dest
 .env
 .env.test 
+dest/config/ 
+dest/routes/ 
+dest/app.js

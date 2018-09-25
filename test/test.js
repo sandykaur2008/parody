@@ -1,10 +1,10 @@
 'use strict';
-var server = require('../app'), 
+var server = require('../dest/app'), 
     expect = require('chai').expect,
     request = require('request'), 
     nodemailer = require('nodemailer'),
     mockTransport = require('nodemailer-mock-transport'),
-    superTest = require('supertest'); 
+   { MongoClient } = require('mongodb');
 
 describe('server response', function () {
 

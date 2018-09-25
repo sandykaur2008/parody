@@ -8,8 +8,8 @@ const dotenv = require('dotenv');
 const passport = require('passport'); 
 const debug = require('debug')('app'); 
 const cookieParser = require('cookie-parser'); 
-const mainRouter = require('./src/routes/mainRoutes')(); 
-const authRouter = require('./src/routes/authRoutes')();  
+const mainRouter = require('./routes/mainRoutes')(); 
+const authRouter = require('./routes/authRoutes')();  
 
 dotenv.config();  
 const env = process.env.NODE_ENV; 
@@ -24,7 +24,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 })); 
-require('./src/config/passport.js')(app); 
+require('./config/passport.js')(app); 
 app.use(flash()); 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 app.use('/', mainRouter); 
 app.use('/auth', authRouter); 
-app.set('views', './src/views'); 
+app.set('views', './dest/views'); 
 app.set('view engine', 'ejs'); 
 
 
