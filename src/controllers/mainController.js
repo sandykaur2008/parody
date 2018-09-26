@@ -11,8 +11,7 @@ function mainController() {
     res.render('index', {
       title: 'Home',
       messages: req.flash('msg'),
-      errors: [],
-      user: req.user
+      errors: []
     }); 
   }
   function postIndex(req, res) {
