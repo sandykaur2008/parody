@@ -1,6 +1,7 @@
 'use strict'; 
 const { MongoClient } = require('mongodb'); 
 const { validationResult } = require('express-validator/check'); 
+const bcrypt = require('bcrypt'); 
 
 function authController() {
   function getRegister(req, res) {
@@ -19,7 +20,8 @@ function authController() {
           errors: update 
         }); 
       }
-      const { username, password } = req.body; 
+      const username = req.body.username;
+      const password = req.body.password; 
       const url = 'mongodb://localhost:27017'; 
       const dbName = 'parodyApp'; 
 
@@ -29,7 +31,10 @@ function authController() {
           client = await MongoClient.connect(url); 
           const db = client.db(dbName); 
           const col = db.collection('users'); 
-          const user = { username, password };
+          const hashedPassword = await bcrypt.hash(password, 10); 
+          const user =  { 
+            username: username, 
+            password: hashedPassword }; 
           const exists = await col.findOne({username: user.username}); 
           console.log(exists);  
           if (exists === null) {

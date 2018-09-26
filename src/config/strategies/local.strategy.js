@@ -2,6 +2,7 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local'); 
 const { MongoClient } = require('mongodb'); 
+const bcrypt = require('bcrypt'); 
 
 function localStrategy() {
   passport.use(new Strategy(
@@ -25,7 +26,7 @@ function localStrategy() {
           if (user === null) {
             done(null, false, {message: 'invalid username'}); 
           }
-          else if (user.password === password) {
+          else if (bcrypt.compareSync(password, user.password) === true) {
             done(null, user); 
           } else {
             done(null, false, {message: 'invalid password'}); 
