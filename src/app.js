@@ -8,6 +8,7 @@ const flash= require('connect-flash');
 const dotenv = require('dotenv');
 const passport = require('passport'); 
 const debug = require('debug')('app'); 
+const helmet = require('helmet'); 
 const cookieParser = require('cookie-parser'); 
 const mainRouter = require('./routes/mainRoutes')(); 
 const authRouter = require('./routes/authRoutes')();  
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
   console.log("csrf token = " + token); 
   next();
 });
+app.use(helmet()); 
 app.use('/', mainRouter); 
 app.use('/auth', authRouter); 
 app.set('views', './dest/views'); 
