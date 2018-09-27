@@ -8,16 +8,12 @@
       <% include partials/header %>
     </header>
     <main>
-      <h1>Register</h1>
+      <h1>Reset Password</h1>
       <% for (var i=0; i < errors.length; i++) { %>
         <li><%= errors[i].msg %></li>
       <% } %> 
-      <form name='registerForm' method="post" action="/auth/register">
-        Username:
-        <input type='text' name="username"/>
-        Email: 
-        <input type='text' name='email'/>
-        Password:
+      <form name='pswdresetForm' method="post" action="/auth/reset/<%= token %>">
+        New Password:
         <input type='password' name="password"/>
         Retype Password:
         <input type='password' name="password2"/>

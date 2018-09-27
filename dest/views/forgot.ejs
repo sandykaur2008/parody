@@ -8,19 +8,16 @@
       <% include partials/header %>
     </header>
     <main>
-      <h1>Register</h1>
+      <h1>Forgot Password</h1>
+      <% if (messages) { %>
+        <p><%= messages %></p>
+      <% } %>
       <% for (var i=0; i < errors.length; i++) { %>
         <li><%= errors[i].msg %></li>
       <% } %> 
-      <form name='registerForm' method="post" action="/auth/register">
-        Username:
-        <input type='text' name="username"/>
-        Email: 
-        <input type='text' name='email'/>
-        Password:
-        <input type='password' name="password"/>
-        Retype Password:
-        <input type='password' name="password2"/>
+      <form name='pswdrequestForm' method="post" action="/auth/forgot">
+        Email:
+        <input type='text' name="email"/> 
         <input type='submit' value='Submit'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>

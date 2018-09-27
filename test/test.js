@@ -1,15 +1,18 @@
 'use strict';
-var server = require('../dest/app'), 
+const server = require('../dest/app'), 
     expect = require('chai').expect,
     request = require('request'), 
     nodemailer = require('nodemailer'),
-    mockTransport = require('nodemailer-mock-transport'),
-   { MongoClient } = require('mongodb');
+    { MongoClient } = require('mongodb'), 
+    mockTransport = require('nodemailer-mock-transport'); 
+    const url = 'mongodb://localhost:27017'; 
+    const dbName = 'parodyTest'; 
+    const bcrypt = require('bcrypt'); 
 
-describe('server response', function () {
+describe('server response', () => {
 
-  it('should return 404', function(done) {
-    request.get('http://localhost:3002/fake', function (err, res){
+  it('should return 404', (done) => {
+    request.get('http://localhost:3002/fake', (err, res) => {
       if (err) {
         console.log(err); 
       }
@@ -18,8 +21,8 @@ describe('server response', function () {
     }); 
   }); 
 
-  it('should return 200', function(done) {
-    request.get('http://localhost:3002', function (err, res){
+  it('should return 200', (done) => {
+    request.get('http://localhost:3002', (err, res) => {
       if (err) {
         console.log(err); 
       }
@@ -28,10 +31,10 @@ describe('server response', function () {
     });
   });
 
-  it('should return 302', function(done) {
+  it('should return 302', (done) => {
     request.post({
       url: 'http://localhost:3002',
-      form: { message: "hello", fullname: "sandy kay", email: "sk595@georgetown.com" }}, function (err, res) {
+      form: { message: "hello", fullname: "sandy kay", email: "sk595@georgetown.com" }}, (err, res) => {
         if (err) {
           console.log(err); 
         }
@@ -41,10 +44,10 @@ describe('server response', function () {
   });
 }); 
 
-describe('response contents', function () {
+describe('response contents', () => {
 
-  it('should check body of request', function(done) {
-    request.get('http://localhost:3002', function (err, res){
+  it('should check body of request', (done) => {
+    request.get('http://localhost:3002', (err, res) => {
       if (err) {
         console.log(err); 
       }
@@ -53,8 +56,8 @@ describe('response contents', function () {
     });
   });
 
-  it('should check headers of request', function(done) {
-    request.get('http://localhost:3002', function (err, res){
+  it('should check headers of request', (done) => {
+    request.get('http://localhost:3002', (err, res) => {
       if (err) {
         console.log(err); 
       }
@@ -64,9 +67,9 @@ describe('response contents', function () {
   });
 });
 
-describe('email functionality', function () {
+describe('email functionality', () => {
 
-  it('should check email message', function () {
+  it('should check email message', () => {
     var transport = mockTransport({
       foo: 'bar'
     });
@@ -85,12 +88,12 @@ describe('email functionality', function () {
   });
 })
 
-describe('check validation (invalid entries)', function () {
+describe('check validation (invalid entries)', () => {
 
-  it('contact form should be invalid', function(done) {
+  it('contact form should be invalid', (done) => {
     request.post({
       url: 'http://localhost:3002',
-      form: { message: "hello", fullname: "sandy kay", email: "sk595" }}, function (err, res) {
+      form: { message: "hello", fullname: "sandy kay", email: "sk595" }}, (err, res) => {
         if (err) {
           console.log(err); 
         }
@@ -100,10 +103,10 @@ describe('check validation (invalid entries)', function () {
     });
   }); 
 
-  it('registration form should be invalid due to mismatching passwords', function(done) {
+  it('registration form should be invalid due to mismatching passwords', (done) => {
     request.post({
     url: 'http://localhost:3002/auth/register',
-    form: { username: "jack", password: "12345", password2: "123456"}}, function (err, res) {
+    form: { username: "example", email: "example@example.com", password: "12345", password2: "123456"}}, (err, res) => {
       if (err) {
         console.log(err);
       }
@@ -113,23 +116,23 @@ describe('check validation (invalid entries)', function () {
     }); 
   }); 
 
-  it('registration form should be invalid due to already taken username', function(done) {
+  it('registration form should be invalid due to already taken username', (done) => {
     request.post({
     url: 'http://localhost:3002/auth/register',
-    form: { username: "max", password: "12345", password2: "12345"}}, function (err, res) {
+    form: { username: "mark", email: "example@example.com", password: "hello", password2: "hello"}}, (err, res) => {
       if (err) {
         console.log(err);
       }
       expect(res.statusCode).to.equal(200);
-      expect(res.body).to.include('Username already taken'); 
+      expect(res.body).to.include('Username/email already registered'); 
       done(); 
     }); 
   }); 
 
-  it('login form should be invalid and redirect', function(done) {
+  it('login form should be invalid and redirect', (done) => {
     request.post({
     url: 'http://localhost:3002/auth/login',
-    form: { username: "sandykaur200", password: "history2012"}}, function (err, res) {
+    form: { username: "sandykaur200", password: "history2012"}}, (err, res) => {
       if (err) {
         console.log(err);
       }
@@ -140,16 +143,15 @@ describe('check validation (invalid entries)', function () {
   }); 
 }); 
 
-describe('check validation (valid entries)', function () {
-
-  after(function () {
+describe('check validation (valid entries)', () => {
+  after( () => {
     server.close();
    });
 
-  it('should login/logout user', function (done) {
+  it('should login user', (done) => {
     request.post({
       url: 'http://localhost:3002/auth/login',
-      form: {username: "sandykaur2008", password: "history2012"}}, function (err, res){
+      form: {username: "sandykaur2008", password: "hello"}}, (err, res) => {
         if (err) {
           console.log(err); 
         }
@@ -158,6 +160,38 @@ describe('check validation (valid entries)', function () {
         done(); 
     }); 
   }); 
-}); 
-  
 
+  it('should send reset password email', (done) => {
+    request.post({
+      url: 'http://localhost:3002/auth/forgot',
+      form: { email: "test@example.com" }}, (err, res) => {
+        if (err) {
+          console.log(err); 
+        }
+        expect(res.statusCode).to.equal(302);
+        done(); 
+    });
+  });
+  it ('should reset password via email link', (done) => {
+    async function findUser() {
+        var client = await MongoClient.connect(url); 
+        const db = client.db(dbName); 
+        const col = db.collection('users'); 
+        const user = await col.findOne({email: "test@example.com"});          
+        return user.resetToken; 
+        } 
+    findUser().then((token) => {
+      request.post({
+        url: 'http://localhost:3002/auth/reset/' + token,
+         form: { password: "hello", password2: "hello"}}, (err, res) => {
+           if (err) {
+             console.log(err); 
+           }
+           expect(res.statusCode).to.equal(302);
+           console.log(res.body); 
+           expect(res.body).to.include("Redirecting to /");
+           done();   
+        }); 
+      });
+  }); 
+}); 
