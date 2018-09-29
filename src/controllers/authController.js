@@ -49,7 +49,7 @@ function authController() {
             const results = await col.insertOne(user);
             console.log(results); 
             req.login(results.ops[0], () => {
-              res.redirect('/auth/profile');
+              res.redirect('/profile');
             });} else {
               return res.render('register', {
                 title: 'Register',
@@ -66,16 +66,6 @@ function authController() {
         message: req.flash('error')
        }); 
      }
-     function getProfile(req, res) {
-      if (req.user) {
-        res.render('profile', {
-          title: 'Profile', 
-          username: req.user.username
-        }); 
-      } else {
-        res.redirect('/'); 
-      }
-    }
     function getLogout(req, res) {
       req.logout();
       res.redirect('/'); 
@@ -262,7 +252,6 @@ function authController() {
     getRegister,
     postRegister,
     getLogin,
-    getProfile,
     getLogout,
     getForgot,
     postForgot,

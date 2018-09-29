@@ -7,14 +7,19 @@ const mainRouter = express.Router();
 
 
 function router() {
-  const { getIndex, postIndex } = mainController(); 
+  const { getIndex, postIndex, getProfile, editProfile, postProfile} = mainController(); 
   mainRouter.route('/')
     .get(getIndex) 
     .post([
       body('message', 'Empty Message Field').not().isEmpty().trim().escape(), 
       body('fullname', 'Empty Name Field').not().isEmpty().trim().escape(),
       body('email', 'Invalid Email').isEmail().normalizeEmail()
-      ], postIndex); 
+      ], postIndex);
+  mainRouter.route('/profile')
+      .get(getProfile);   
+  mainRouter.route('/editprofile')
+      .get(editProfile)
+      .post(postProfile); 
   return mainRouter; 
 }
 

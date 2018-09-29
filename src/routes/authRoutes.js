@@ -6,7 +6,7 @@ const { body } = require('express-validator/check');
 const authRouter = express.Router(); 
 
 function router() {
-  const { getRegister, postRegister, getLogin, getProfile,
+  const { getRegister, postRegister, getLogin,
      getLogout, getForgot, postForgot, getReset, postReset } = authController(); 
   authRouter.route('/register')
     .get(getRegister) 
@@ -25,12 +25,10 @@ function router() {
   authRouter.route('/login')
    .get(getLogin) 
    .post(passport.authenticate('local', {
-     successRedirect: '/auth/profile',
+     successRedirect: '/profile/',
      failureRedirect: '/auth/login',
      failureFlash: true
     }));  
-  authRouter.route('/profile')
-    .get(getProfile);  
   authRouter.route('/logout')
     .get(getLogout); 
   authRouter.route('/forgot')

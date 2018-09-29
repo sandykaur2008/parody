@@ -16,8 +16,8 @@
         <li><%= errors[i].msg %></li>
       <% } %> 
       <form name='pswdrequestForm' method="post" action="/auth/forgot">
-        Email:
-        <input type='text' name="email"/> 
+        <label for"email">Email:</label> 
+        <input type='text' id="email" name="email"/> 
         <input type='submit' value='Submit'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>

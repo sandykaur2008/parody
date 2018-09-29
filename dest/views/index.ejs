@@ -21,12 +21,12 @@
         <li><%= errors[i].msg %></li>
       <% } %> 
       <form name='contactForm' method="post" action=".">
-        Questions/Comments:
-        <textarea name="message" rows="10" cols="30"></textarea>
-        Full Name:
-        <input type='text' name="fullname"/>
-        Email:
-        <input type='text' name="email"/>
+        <label for"message">Questions/Comments:</label>
+        <textarea name="message" id="message" rows="10" cols="30"></textarea>
+        <label for ="fullname">Full Name:</label> 
+        <input type='text' id="fullname" name="fullname"/>
+        <label for="email">Email:</label> 
+        <input type='text' id="email" name="email"/>
         <input type='submit' value='Submit'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>

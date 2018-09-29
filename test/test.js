@@ -6,8 +6,7 @@ const server = require('../dest/app'),
     { MongoClient } = require('mongodb'), 
     mockTransport = require('nodemailer-mock-transport'); 
     const url = 'mongodb://localhost:27017'; 
-    const dbName = 'parodyTest'; 
-    const bcrypt = require('bcrypt'); 
+    const dbName = 'parodyTest';
 
 describe('server response', () => {
 
@@ -156,7 +155,7 @@ describe('check validation (valid entries)', () => {
           console.log(err); 
         }
         expect(res.statusCode).to.equal(302);
-        expect(res.body).to.include('Redirecting to /auth/profile');
+        expect(res.body).to.include('Redirecting to /profile/');
         done(); 
     }); 
   }); 
@@ -193,5 +192,12 @@ describe('check validation (valid entries)', () => {
            done();   
         }); 
       });
+  }); 
+}); 
+
+describe('check profile rendering & editing', () => {
+
+  it('should check body of profile', (done) => {
+    expect(res.body).to.include("Redirecting to /profile/"); 
   }); 
 }); 

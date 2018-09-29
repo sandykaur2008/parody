@@ -14,10 +14,10 @@
       <% } %>
       <a href="/auth/forgot">Forgot Password?</a>
       <form name='loginForm' method="post" action="/auth/login">
-        Username:
-        <input type='text' name="username"/>
-        Password:
-        <input type='password' name="password"/>
+        <label for="username">Username:</label>
+        <input type='text' id="username" name="username"/>
+        <label for="password">Password:</label>
+        <input type='password' id="password" name="password"/>
         <input type='submit' value='Submit'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>
