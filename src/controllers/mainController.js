@@ -151,6 +151,7 @@ function mainController() {
   }
 
   function postProfile(req, res) {
+    const pic = req.body.pic; 
     const weakness = req.body.weakness;
     const weaknessOther = req.body.weaknessOther; 
     const weaknessArray = [];
@@ -199,7 +200,9 @@ function mainController() {
             await col.updateOne(
               { username: user.username },
               {
-                $set: { weakness: weaknessArray,
+                $set: { 
+                pic: pic, 
+                weakness: weaknessArray,
                 weaknessOther: weaknessOther,
                 strength: strengthArray,
                 strengthOther: strengthOther,

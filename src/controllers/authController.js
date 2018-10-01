@@ -45,6 +45,7 @@ function authController() {
           const col = db.collection('users'); 
           const hashedPassword = await bcrypt.hash(password, 10); 
           const user =  { 
+            pic: "",
             username: username, 
             password: hashedPassword,
             email: email,

@@ -11,6 +11,7 @@
       <h1>Edit profile for <%=user.username%></h1> 
       <h2>Weaknesses</h2>
       <form name="editProfileForm" method="post" action="/editprofile/">
+        <input type="file" name="pic" accept="image/*">
         <input type="hidden" name="weakness[late]" value="0">
         <input type="hidden" name="weakness[cry]" value="0">
         <input type="hidden" name="weakness[impatient]" value="0">
