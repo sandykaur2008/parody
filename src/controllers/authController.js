@@ -1,6 +1,7 @@
 'use strict'; 
 const { MongoClient } = require('mongodb'); 
 const { validationResult } = require('express-validator/check'); 
+const url = 'mongodb://localhost:27017'; 
 const bcrypt = require('bcrypt'); 
 const crypto = require('crypto'); 
 const nodemailer = require('nodemailer'); 
@@ -8,6 +9,12 @@ const dotenv = require('dotenv');
 dotenv.config();  
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
+if (envString === 'TEST') {
+  var dbName = 'parodyTest';
+} 
+else {
+  var dbName = 'parodyApp';
+}
 
 function authController() {
   function getRegister(req, res) {
@@ -29,8 +36,6 @@ function authController() {
       const username = req.body.username;
       const password = req.body.password; 
       const email = req.body.email; 
-      const url = 'mongodb://localhost:27017'; 
-      const dbName = 'parodyApp'; 
 
       (async function addUser() {
         let client;
@@ -42,7 +47,39 @@ function authController() {
           const user =  { 
             username: username, 
             password: hashedPassword,
-            email: email }; 
+            email: email,
+            allergy: [
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null]
+            ],
+            qualm: [
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null],
+            ],
+            spirit: [
+              ["0", null],
+              ["0", null],
+              ["0", null],
+            ],
+            strength: [
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null]
+            ],
+            weakness: [
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null],
+              ["0", null]
+            ]}; 
           const usernameExists = await col.findOne({username: user.username}); 
           const emailExists = await col.findOne({ email: user.email }); 
           if (usernameExists === null && emailExists === null) {
@@ -90,13 +127,6 @@ function authController() {
       }
 
       const email = req.body.email; 
-      const url = 'mongodb://localhost:27017'; 
-      if (envString === 'TEST') {
-        var dbName = 'parodyTest';
-      } else {
-        var dbName = 'parodyApp'; 
-      }
-
       (async function sendReset() {
         let client;
         try {
@@ -151,12 +181,6 @@ function authController() {
     }
     function getReset(req, res) {
 
-      const url = 'mongodb://localhost:27017'; 
-      if (envString === 'TEST') {
-        var dbName = 'parodyTest';
-      } else {
-      var dbName = 'parodyApp'; 
-      }
       (async function reset() {
         let client;
         try {
@@ -192,12 +216,8 @@ function authController() {
       }
 
       const password = req.body.password; 
-      const url = 'mongodb://localhost:27017'; 
-      if (envString === 'TEST') {
-        var dbName = 'parodyTest';
-      } else {
-      var dbName = 'parodyApp'; 
-      }
+
+
       (async function doReset() {
         let client;
         try {

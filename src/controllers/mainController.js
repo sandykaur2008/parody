@@ -6,6 +6,13 @@ const dotenv = require('dotenv');
 dotenv.config();  
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
+const url = 'mongodb://localhost:27017'; 
+if (envString === 'TEST') {
+  var dbName = 'parodyTest';
+} 
+else {
+  var dbName = 'parodyApp';
+}
 
 function mainController() {
   function getIndex(req, res) {
@@ -53,13 +60,36 @@ function mainController() {
   }
   function getProfile(req, res) {
     if (req.user) {
-      res.render('profile', {
-        title: 'Profile', 
-      }); 
-    } else {
+      (async function renderProfile() {
+        let client;
+        try {
+          client = await MongoClient.connect(url); 
+          const db = client.db(dbName); 
+          const col = db.collection('users'); 
+          const username = req.user.username; 
+          const dbUser= await col.findOne({username: username});
+          res.render('profile', {
+              title: 'Profile', 
+              weakness: dbUser.weakness,
+              strength: dbUser.strength,
+              allergy: dbUser.allergy,
+              spirit: dbUser.spirit,
+              qualm: dbUser.qualm,
+              weaknessOther: dbUser.weaknessOther,
+              strengthOther: dbUser.strengthOther,
+              qualmOther: dbUser.qualmOther,
+              allergyOther: dbUser.allergyOther,
+              spiritOther: dbUser.spiritOther 
+            }); 
+          } catch (err) {
+          console.log(err); 
+        }
+        }()); 
+    } 
+    else {
       res.redirect('/'); 
     }
-  }
+}
 
   function editProfile(req, res) {
     const weaknessArray = []; 
@@ -67,8 +97,6 @@ function mainController() {
     const qualmArray = [];
     const spiritArray = [];
     const allergyArray = []; 
-    const url = 'mongodb://localhost:27017'; 
-    const dbName = 'parodyApp'; 
     
     function checkProperty(property, array) { 
       for (let i = 0; i < property.length; i++) { 
@@ -105,10 +133,15 @@ function mainController() {
             return res.render('editprofile', {
               title: "Edit Profile",
               weaknessArray: updatedweaknessArray,
+              weaknessOther: dbUser.weaknessOther,
               strengthArray: updatedstrengthArray,
+              strengthOther: dbUser.strengthOther,
               qualmArray: updatedqualmArray,
+              qualmOther: dbUser.qualmOther,
               allergyArray: updatedallergyArray,
-              spiritArray: updatedspiritArray
+              allergyOther: dbUser.allergyOther,
+              spiritArray: updatedspiritArray, 
+              spiritOther: dbUser.spiritOther 
             }); 
           }
       } catch (err) {
@@ -119,17 +152,20 @@ function mainController() {
 
   function postProfile(req, res) {
     const weakness = req.body.weakness;
+    const weaknessOther = req.body.weaknessOther; 
     const weaknessArray = [];
     const strength = req.body.strength; 
+    const strengthOther = req.body.strengthOther; 
     const strengthArray = []; 
     const allergy = req.body.allergy; 
+    const allergyOther = req.body.allergyOther; 
     const allergyArray = []; 
     const qualm = req.body.qualm; 
+    const qualmOther = req.body.qualmOther; 
     const qualmArray = []; 
     const spirit = req.body.spirit; 
+    const spiritOther = req.body.spiritOther; 
     const spiritArray = [];
-    const url = 'mongodb://localhost:27017'; 
-    const dbName = 'parodyApp'; 
     const user = req.user; 
 
     function createArray(requestData, requestArray) {
@@ -164,10 +200,15 @@ function mainController() {
               { username: user.username },
               {
                 $set: { weakness: weaknessArray,
+                weaknessOther: weaknessOther,
                 strength: strengthArray,
+                strengthOther: strengthOther,
                 allergy: allergyArray,
+                allergyOther: allergyOther,
                 qualm: qualmArray,
-                spirit: spiritArray
+                qualmOther: qualmOther,
+                spirit: spiritArray,
+                spiritOther: spiritOther
             }
               }
             );

@@ -27,7 +27,7 @@
         <input type="checkbox" id= "weakness quiet" name="weakness[quiet]" value="1" <%=weaknessArray[4]%>>
         <label for="weakness quiet">I never want to speak to anyone else ever again for as long as I live</label>
         <label for="weakness other">Other:</label>
-        <input type="text" id="weakness other" name="weakness other">
+        <input type="text" id="weakness other" name="weaknessOther" value=<%=weaknessOther%> >
       <h2>Strengths</h2>
         <input type="hidden" name="strength[genius]" value="0">
         <input type="hidden" name="strength[tough]" value="0">
@@ -45,7 +45,7 @@
         <input type="checkbox" id="stength loud" name="strength[loud]" value="1" <%=strengthArray[4]%>>
         <label for="strength loud">I am great at talking at people, i.e. would make a good corporate drone someday</label>
         <label for="strength other">Other:</label>
-        <input type="text" id="strength other" name="strength other">
+        <input type="text" id="strength other" name="strengthOther" value=<%=strengthOther%> >
       <h2>Allergies</h2>
         <input type="hidden" name="allergy[dogs]" value="0">
         <input type="hidden" name="allergy[cats]" value="0">
@@ -63,7 +63,7 @@
         <input type="checkbox" id="allergy social" name="allergy[social]" value="1" <%=allergyArray[4]%>>
         <label for="allergy social">Social conservatives</label> 
         <label for="allergy other">Other:</label>
-        <input type="text" id="allergy other" name="allergy other">
+        <input type="text" id="allergy other" name="allergyOther" value=<%=allergyOther%> >
       <h2>Moral Qualms</h2>
         <input type="hidden" name="qualm[none]" value="0">
         <input type="hidden" name="qualm[all]" value="0">
@@ -78,7 +78,7 @@
         <input type="checkbox" id="qualm caught" name="qualm[caught]" value="1" <%=qualmArray[3]%>>
         <label for="qualm caught">I'll do anything short of getting caught >:)</label> 
         <label for="qualm other">Other:</label>
-        <input type="text" id="qualm other" name="qualm other">
+        <input type="text" id="qualm other" name="qualmOther" value=<%=qualmOther%> >
       <h2>Company Spirit</h2>
         <input type="hidden" name="spirit[yas]" value="0">
         <input type="hidden" name="spirit[none]" value="0">
@@ -90,7 +90,7 @@
         <input type="checkbox" id="spirit whatever" name="spirit[whatever]" value="1" <%=spiritArray[2]%>>
         <label for="spirit[whatever]">W/e, just give me free stuff</label>
         <label for="spirit other">Other:</label>
-        <input type="text" id="spirit other" name="spirit other">
+        <input type="text" id="spirit other" name="spiritOther" value=<%=spiritOther%>>
         <input type='submit' value='Submit'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form> 

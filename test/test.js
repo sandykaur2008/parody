@@ -1,10 +1,11 @@
 'use strict';
 const server = require('../dest/app'), 
-    expect = require('chai').expect,
+    expect = require('chai').expect, 
     request = require('request'), 
     nodemailer = require('nodemailer'),
     { MongoClient } = require('mongodb'), 
     mockTransport = require('nodemailer-mock-transport'); 
+    const supertest = require('supertest'); 
     const url = 'mongodb://localhost:27017'; 
     const dbName = 'parodyTest';
 
@@ -118,7 +119,7 @@ describe('check validation (invalid entries)', () => {
   it('registration form should be invalid due to already taken username', (done) => {
     request.post({
     url: 'http://localhost:3002/auth/register',
-    form: { username: "mark", email: "example@example.com", password: "hello", password2: "hello"}}, (err, res) => {
+    form: { username: "test", email: "example@example.com", password: "hello", password2: "hello"}}, (err, res) => {
       if (err) {
         console.log(err);
       }
@@ -131,7 +132,7 @@ describe('check validation (invalid entries)', () => {
   it('login form should be invalid and redirect', (done) => {
     request.post({
     url: 'http://localhost:3002/auth/login',
-    form: { username: "sandykaur200", password: "history2012"}}, (err, res) => {
+    form: { username: "tes", password: "history2012"}}, (err, res) => {
       if (err) {
         console.log(err);
       }
@@ -143,14 +144,11 @@ describe('check validation (invalid entries)', () => {
 }); 
 
 describe('check validation (valid entries)', () => {
-  after( () => {
-    server.close();
-   });
 
   it('should login user', (done) => {
     request.post({
       url: 'http://localhost:3002/auth/login',
-      form: {username: "sandykaur2008", password: "hello"}}, (err, res) => {
+      form: {username: "test", password: "hello"}}, (err, res) => {
         if (err) {
           console.log(err); 
         }
@@ -171,6 +169,7 @@ describe('check validation (valid entries)', () => {
         done(); 
     });
   });
+
   it ('should reset password via email link', (done) => {
     async function findUser() {
         var client = await MongoClient.connect(url); 
@@ -197,7 +196,153 @@ describe('check validation (valid entries)', () => {
 
 describe('check profile rendering & editing', () => {
 
-  it('should check body of profile', (done) => {
-    expect(res.body).to.include("Redirecting to /profile/"); 
-  }); 
+  const user = {
+    username: "test",
+    password: "hello"
+  }; 
+
+  var authenticatedUser = supertest.agent(server); 
+
+  before ((done) => {
+    authenticatedUser
+      .post('/auth/login')
+      .send(user)
+      .end( (err, res) => {
+        expect(res.statusCode).to.equal(302);
+        expect(res.text).to.include('Redirecting to /profile/'); 
+        done(); 
+      }); 
+    }); 
+
+  after( () => {
+    server.close();
+   });
+
+  it('should redirect once update profile I', (done) => {
+    const form = {
+      weakness: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ], 
+      weaknessOther: "test weakness", 
+      strength: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ],
+      strengthOther: "",
+      allergy: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ],
+      allergyOther: "",
+      qualm: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+      ],
+      qualmOther: "", 
+      spirit: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+      ],
+      spiritOther: "",
+    }; 
+    authenticatedUser
+    .post('/editprofile')
+    .send(form)
+    .end( (err, res) => {
+        if (err) {
+          console.log(err);
+        }
+        expect(res.statusCode).to.equal(302);
+        done(); 
+    });
+  });
+  it('should confirm updating of profile I', (done) => { 
+    authenticatedUser
+    .get('/profile')
+    .end( (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      expect(res.statusCode).to.equal(200);
+      expect(res.text).to.include('test weakness');
+      done(); 
+    }); 
+  });  
+
+  it('should redirect once update profile II', (done) => {
+    const form = {
+      weakness: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ], 
+      weaknessOther: "", 
+      strength: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ],
+      strengthOther: "test strength",
+      allergy: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null]
+      ],
+      allergyOther: "",
+      qualm: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+        ["0", null],
+      ],
+      qualmOther: "", 
+      spirit: [
+        ["0", null],
+        ["0", null],
+        ["0", null],
+      ],
+      spiritOther: "",
+    }; 
+    authenticatedUser
+    .post('/editprofile')
+    .send(form)
+    .end( (err, res) => {
+        if (err) {
+          console.log(err);
+        }
+        expect(res.statusCode).to.equal(302);
+        done(); 
+    });
+  });
+  it('should confirm updating of profile II', (done) => { 
+    authenticatedUser
+    .get('/profile')
+    .end( (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      expect(res.statusCode).to.equal(200);
+      expect(res.text).to.include('test strength');
+      done(); 
+    }); 
+  });  
 }); 

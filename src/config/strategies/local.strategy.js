@@ -3,6 +3,17 @@ const passport = require('passport');
 const { Strategy } = require('passport-local'); 
 const { MongoClient } = require('mongodb'); 
 const bcrypt = require('bcrypt'); 
+const dotenv = require('dotenv');
+dotenv.config();  
+const env = process.env.NODE_ENV; 
+const envString = env.toUpperCase(); 
+const url = 'mongodb://localhost:27017'; 
+if (envString === 'TEST') {
+  var dbName = 'parodyTest';
+} 
+else {
+  var dbName = 'parodyApp';
+}
 
 function localStrategy() {
   passport.use(new Strategy(
@@ -10,8 +21,6 @@ function localStrategy() {
       usernameField: 'username',
       passwordField: 'password'
     }, (username, password, done) => {
-      const url = 'mongodb://localhost:27017';
-      const dbName = 'parodyApp'; 
       (async function mongo() {
         let client;
 
