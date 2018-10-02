@@ -70,6 +70,7 @@ function mainController() {
           const dbUser= await col.findOne({username: username});
           res.render('profile', {
               title: 'Profile', 
+              image: dbUser.imagePath, 
               weakness: dbUser.weakness,
               strength: dbUser.strength,
               allergy: dbUser.allergy,
@@ -132,6 +133,7 @@ function mainController() {
           const updatedspiritArray = checkProperty(dbUser.spirit, spiritArray); 
             return res.render('editprofile', {
               title: "Edit Profile",
+              image: dbUser.imagePath, 
               weaknessArray: updatedweaknessArray,
               weaknessOther: dbUser.weaknessOther,
               strengthArray: updatedstrengthArray,
@@ -151,7 +153,6 @@ function mainController() {
   }
 
   function postProfile(req, res) {
-    const pic = req.body.pic; 
     const weakness = req.body.weakness;
     const weaknessOther = req.body.weaknessOther; 
     const weaknessArray = [];
@@ -191,6 +192,11 @@ function mainController() {
         const db = client.db(dbName); 
         const col = db.collection('users'); 
         const userExists = await col.findOne({username: user.username}); 
+        if (req.file === undefined) {
+          var imagePath = userExists.imagePath; 
+        } else { 
+          var imagePath = "/images/uploads/" + req.file.filename;
+         }
         if (userExists === null) {
             res.render('register', {
               title: 'Register',
@@ -201,7 +207,7 @@ function mainController() {
               { username: user.username },
               {
                 $set: { 
-                pic: pic, 
+                imagePath: imagePath,  
                 weakness: weaknessArray,
                 weaknessOther: weaknessOther,
                 strength: strengthArray,

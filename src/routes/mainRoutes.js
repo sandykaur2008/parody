@@ -4,8 +4,6 @@ const mainController = require('../controllers/mainController');
 const { body } = require('express-validator/check'); 
 const mainRouter = express.Router();  
 
-
-
 function router() {
   const { getIndex, postIndex, getProfile, editProfile, postProfile} = mainController(); 
   mainRouter.route('/')

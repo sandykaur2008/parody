@@ -3,6 +3,15 @@ const express = require('express');
 const app = express(); 
 const bodyParser = require('body-parser'); 
 const csrf = require('csurf'); 
+const multer = require('multer'); 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images/uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now());
+  } 
+  }); 
 const session = require('express-session');
 const flash= require('connect-flash'); 
 const dotenv = require('dotenv');
@@ -10,6 +19,7 @@ const passport = require('passport');
 const debug = require('debug')('app'); 
 const helmet = require('helmet'); 
 const cookieParser = require('cookie-parser'); 
+const path = require('path'); 
 const mainRouter = require('./routes/mainRoutes')(); 
 const authRouter = require('./routes/authRoutes')();  
 
@@ -25,6 +35,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 })); 
+
+app.use(multer({storage: storage}).single('avatar')); 
 app.use(
   envString === 'TEST' ?
   csrf({ ignoreMethods: ['GET', 'POST']}): 
@@ -41,6 +53,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(helmet()); 
+app.use(express.static('public')); 
 app.use('/', mainRouter); 
 app.use('/auth', authRouter); 
 app.set('views', './dest/views'); 
