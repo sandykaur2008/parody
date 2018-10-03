@@ -25,10 +25,14 @@ function router() {
   authRouter.route('/login')
    .get(getLogin) 
    .post(passport.authenticate('local', {
-     successRedirect: '/profile/',
      failureRedirect: '/auth/login',
      failureFlash: true
-    }));  
+    }), 
+      function (req, res) {
+        var username = req.user.username;
+        var successRedirect = '/profile/' + username; 
+        res.redirect(successRedirect); 
+      });  
   authRouter.route('/logout')
     .get(getLogout); 
   authRouter.route('/forgot')

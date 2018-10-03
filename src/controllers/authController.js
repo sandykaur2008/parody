@@ -87,7 +87,7 @@ function authController() {
             const results = await col.insertOne(user);
             console.log(results); 
             req.login(results.ops[0], () => {
-              res.redirect('/profile');
+              res.redirect('/profile/' + username);
             });} else {
               return res.render('register', {
                 title: 'Register',

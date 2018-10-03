@@ -1,8 +1,8 @@
 <a href="/">Home</a> 
 <% if (user) { %>
-<a href="#">My Connections</a>
+<a href="/directory/">Directory</a>
 <a href="#">Messages</a> 
-<a href="/profile/">Profile</a>
+<a href="/profile/<%=user.username%>">Profile</a>
 <a href="/auth/logout">Logout</a>
 <% } else { %>
 <a href="/auth/login">Login</a>

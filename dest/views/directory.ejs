@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+  </head> 
+  <body>
+    <header>
+      <% include partials/header %>
+    </header>
+    <main>
+      <h1>Directory</h1>
+      <% for (var i=0; i < users.length; i++) { %>
+        <li><%= users[i].username %></li>
+        <img src='<%=users[i].imagePath%>' alt="avatar">
+      <% } %> 
+    </main>
+  </body> 
+</html>

@@ -66,10 +66,11 @@ function mainController() {
           client = await MongoClient.connect(url); 
           const db = client.db(dbName); 
           const col = db.collection('users'); 
-          const username = req.user.username; 
+          const username = req.params.username; 
           const dbUser= await col.findOne({username: username});
           res.render('profile', {
-              title: 'Profile', 
+              title: 'Profile',  
+              relevantUser: dbUser, 
               image: dbUser.imagePath, 
               weakness: dbUser.weakness,
               strength: dbUser.strength,
@@ -221,19 +222,47 @@ function mainController() {
             }
               }
             );
-            return res.redirect('/profile'); 
+            return res.redirect('/profile/'+ user.username); 
           }
       } catch (err) {
         console.log(err); 
       }
       }());   
   }
+  
+  function getDirectory(req, res) {
+    (async function getDirectory() {
+      let client;
+      try {
+        client = await MongoClient.connect(url); 
+        const db = client.db(dbName); 
+        const col = db.collection('users'); 
+        const users = await col.find({}); 
+        const usersArray = await users.toArray(); 
+        console.log(users); 
+        if (!req.user) {
+            res.render('register', {
+              title: 'Register',
+              errors: [{msg: 'You must register to access directory page'}]});
+        } 
+          else {
+              return res.render('directory', {
+                title: "Directory",
+                users: usersArray
+              }); 
+            };  
+      } catch (err) {
+        console.log(err); 
+      }
+      }());   
+  } 
   return {
     getIndex,
     postIndex,
     getProfile,
     editProfile,
-    postProfile
+    postProfile,
+    getDirectory 
   }; 
 }
 

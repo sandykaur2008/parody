@@ -8,9 +8,11 @@
       <% include partials/header %>
     </header>
     <main>
-      <h1><%= user.username %></h1>
+      <h1><%= relevantUser.username %></h1>
       <img src='<%=image%>' alt="avatar">
-      <a href="/editprofile/">Edit Profile</a>
+      <% if (user.username === relevantUser.username) { %>
+        <a href="/editprofile/">Edit Profile</a>
+      <% } %> 
       <h2>Weaknesses</h2>
       <% if (weakness[0][1]) { %>
         <li>I am physically incapable of being on time</li>

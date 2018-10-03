@@ -271,7 +271,7 @@ describe('check profile rendering & editing', () => {
   });
   it('should confirm updating of profile I', (done) => { 
     authenticatedUser
-    .get('/profile')
+    .get('/profile/' + user.username)
     .end( (err, res) => {
       if (err) {
         console.log(err);
@@ -335,7 +335,7 @@ describe('check profile rendering & editing', () => {
   });
   it('should confirm updating of profile II', (done) => { 
     authenticatedUser
-    .get('/profile')
+    .get('/profile/' + user.username)
     .end( (err, res) => {
       if (err) {
         console.log(err);

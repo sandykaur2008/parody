@@ -5,7 +5,7 @@ const { body } = require('express-validator/check');
 const mainRouter = express.Router();  
 
 function router() {
-  const { getIndex, postIndex, getProfile, editProfile, postProfile} = mainController(); 
+  const { getIndex, postIndex, getProfile, editProfile, postProfile, getDirectory} = mainController(); 
   mainRouter.route('/')
     .get(getIndex) 
     .post([
@@ -13,11 +13,13 @@ function router() {
       body('fullname', 'Empty Name Field').not().isEmpty().trim().escape(),
       body('email', 'Invalid Email').isEmail().normalizeEmail()
       ], postIndex);
-  mainRouter.route('/profile')
+  mainRouter.route('/profile/:username')
       .get(getProfile);   
   mainRouter.route('/editprofile')
       .get(editProfile)
       .post(postProfile); 
+  mainRouter.route('/directory')
+      .get(getDirectory); 
   return mainRouter; 
 }
 
