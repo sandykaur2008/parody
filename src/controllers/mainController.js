@@ -68,6 +68,10 @@ function mainController() {
           const col = db.collection('users'); 
           const username = req.params.username; 
           const dbUser= await col.findOne({username: username});
+          if (dbUser === null) {
+            return res.render('404', {title: '404'}); 
+        } 
+          else {
           res.render('profile', {
               title: 'Profile',  
               relevantUser: dbUser, 
@@ -83,7 +87,8 @@ function mainController() {
               allergyOther: dbUser.allergyOther,
               spiritOther: dbUser.spiritOther 
             }); 
-          } catch (err) {
+          } 
+        } catch (err) {
           console.log(err); 
         }
         }()); 
@@ -237,20 +242,30 @@ function mainController() {
         client = await MongoClient.connect(url); 
         const db = client.db(dbName); 
         const col = db.collection('users'); 
-        const users = await col.find({}); 
-        const usersArray = await users.toArray(); 
-        console.log(users); 
+        var users = await col.find({}); 
+        var usersArray = await users.toArray(); 
+
         if (!req.user) {
             res.render('register', {
               title: 'Register',
               errors: [{msg: 'You must register to access directory page'}]});
         } 
           else {
+            if (req.query.search) {
+              const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+              var users = await col.find({username: regex});
+              var usersArray = await users.toArray(); 
+              return res.render('directory', {
+                title: "Directory",
+                users: usersArray
+              }); 
+            } else {
               return res.render('directory', {
                 title: "Directory",
                 users: usersArray
               }); 
             };  
+          } 
       } catch (err) {
         console.log(err); 
       }
@@ -265,5 +280,9 @@ function mainController() {
     getDirectory 
   }; 
 }
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}; 
 
 module.exports = mainController; 

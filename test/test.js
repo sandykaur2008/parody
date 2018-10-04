@@ -194,7 +194,7 @@ describe('check validation (valid entries)', () => {
   }); 
 }); 
 
-describe('check profile rendering & editing', () => {
+describe('check profile/directory rendering & editing', () => {
 
   const user = {
     username: "test",
@@ -345,4 +345,12 @@ describe('check profile rendering & editing', () => {
       done(); 
     }); 
   });  
+  it ('should search directory', (done) => {
+    authenticatedUser
+    .get('/directory/?search=hello')
+    .end( (err, res) => {
+      expect(res.text).to.not.include('test2'); 
+      done(); 
+    }); 
+  }); 
 }); 

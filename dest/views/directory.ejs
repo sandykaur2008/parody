@@ -9,9 +9,15 @@
     </header>
     <main>
       <h1>Directory</h1>
+      <form action='/directory/' method="GET" name="searchForm">
+        <input type="text" name="search" placeholder="Search directory"> 
+        <input type="submit" value="Search">
+      </form>  
       <% for (var i=0; i < users.length; i++) { %>
-        <li><%= users[i].username %></li>
-        <img src='<%=users[i].imagePath%>' alt="avatar">
+        <a href="/profile/<%= users[i].username %>">
+          <li><%= users[i].username %></li>
+          <img src='<%=users[i].imagePath%>' alt="avatar">
+        </a> 
       <% } %> 
     </main>
   </body> 

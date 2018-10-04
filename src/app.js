@@ -58,6 +58,13 @@ app.use('/', mainRouter);
 app.use('/auth', authRouter); 
 app.set('views', './dest/views'); 
 app.set('view engine', 'ejs'); 
+app.use(function (req, res, next) {
+  res.status(404).render('404', {title: '404'}); 
+}); 
+app.use(function (req, res, next) {
+  res.status(500).render('500', {title: '500'}); 
+}); 
+
 
 
 const server = app.listen(port, function(){
