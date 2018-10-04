@@ -17,7 +17,12 @@ function router() {
       .get(getProfile);   
   mainRouter.route('/editprofile')
       .get(editProfile)
-      .post(postProfile); 
+      .post([ 
+        body('weaknessOther').trim().escape(),
+        body('strengthOther').trim().escape(),
+        body('allergyOther').trim().escape(),
+        body('qualmOther').trim().escape(),
+        body('spiritOther').trim().escape(),], postProfile); 
   mainRouter.route('/directory')
       .get(getDirectory); 
   return mainRouter; 

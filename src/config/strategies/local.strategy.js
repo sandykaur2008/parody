@@ -8,6 +8,7 @@ dotenv.config();
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
 const url = 'mongodb://localhost:27017'; 
+const { body } = require('express-validator/check'); 
 if (envString === 'TEST') {
   var dbName = 'parodyTest';
 } 
