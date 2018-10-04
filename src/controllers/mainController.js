@@ -94,7 +94,11 @@ function mainController() {
         }()); 
     } 
     else {
-      res.redirect('/'); 
+      res.render('index', {
+        title: 'index',
+        messages: 'You must register/login to access profile page',
+        errors: [] 
+      });
     }
 }
 
@@ -125,9 +129,11 @@ function mainController() {
         const db = client.db(dbName); 
         const col = db.collection('users'); 
         if (!req.user) {
-            res.render('register', {
-              title: 'Register',
-              errors: [{msg: 'You must register to access profile page'}]});
+            res.render('index', {
+              title: 'index',
+              messages: 'You must register/login to access profile page',
+              errors: [] 
+            }); 
         } 
           else {
           const username = req.user.username; 
@@ -246,9 +252,11 @@ function mainController() {
         var usersArray = await users.toArray(); 
 
         if (!req.user) {
-            res.render('register', {
-              title: 'Register',
-              errors: [{msg: 'You must register to access directory page'}]});
+            res.render('index', {
+              title: 'index',
+              messages: 'You must register/login to access directory',
+              errors: [] 
+            }); 
         } 
           else {
             if (req.query.search) {
