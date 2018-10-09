@@ -279,13 +279,29 @@ function mainController() {
       }
       }());   
   } 
+
+  function getMessages(req, res) {
+    if (!req.user) {
+      res.render('index', {
+        title: 'index',
+        messages: 'You must register/login to access profile page',
+        errors: [] 
+      }); 
+  } else {
+    res.render('messages', {
+      title: 'Messages'
+    }); 
+    } 
+  } 
+  
   return {
     getIndex,
     postIndex,
     getProfile,
     editProfile,
     postProfile,
-    getDirectory 
+    getDirectory,
+    getMessages
   }; 
 }
 

@@ -5,7 +5,7 @@ const { body } = require('express-validator/check');
 const mainRouter = express.Router();  
 
 function router() {
-  const { getIndex, postIndex, getProfile, editProfile, postProfile, getDirectory} = mainController(); 
+  const { getIndex, postIndex, getProfile, editProfile, postProfile, getDirectory, getMessages} = mainController(); 
   mainRouter.route('/')
     .get(getIndex) 
     .post([
@@ -25,6 +25,8 @@ function router() {
         body('spiritOther').trim().escape(),], postProfile); 
   mainRouter.route('/directory')
       .get(getDirectory); 
+  mainRouter.route('/messages')
+      .get(getMessages); 
   return mainRouter; 
 }
 
