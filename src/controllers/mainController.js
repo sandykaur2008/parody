@@ -60,6 +60,8 @@ function mainController() {
   }
   function getProfile(req, res) {
     if (req.user) {
+      var sessions = req.sessionStore.sessions;
+      console.log(sessions); 
       (async function renderProfile() {
         let client;
         try {
@@ -288,10 +290,23 @@ function mainController() {
         errors: [] 
       }); 
   } else {
-    res.render('messages', {
-      title: 'Messages'
-    }); 
-    } 
+    (async function getUsers() {
+      let client;
+      try {
+        client = await MongoClient.connect(url); 
+        const db = client.db(dbName); 
+        const col = db.collection('users'); 
+        var users = await col.find({}); 
+        var usersArray = await users.toArray();  
+        res.render('messages', {
+          title: 'Messages',
+          users: usersArray
+        }); 
+      } catch (err) {
+        console.log(err); 
+        }
+      }());   
+    }  
   } 
   
   return {

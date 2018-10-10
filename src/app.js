@@ -74,8 +74,8 @@ const server = app.listen(port, function(){
 const io = require('socket.io').listen(server); 
 
 io.on('connection', function(socket) {
-  socket.on('chat message', function(msg) {
-    io.emit('chat message', msg); 
+  socket.on('chat message', function(data) {
+    io.emit('chat message', data); 
   }); 
 }); 
 

@@ -105,9 +105,27 @@ function authController() {
        }); 
      }
     function getLogout(req, res) {
-      req.logout();
-      res.redirect('/'); 
+      if (!req.user) {
+        return res.redirect('/'); 
+      } else {
+      (async function renderProfile() {
+        let client;
+        try {
+          client = await MongoClient.connect(url); 
+          const db = client.db(dbName); 
+          const col = db.collection('users'); 
+          const username = req.user.username; 
+          await col.updateOne({username: username}, {
+            $set: {online: "no"}
+          }); 
+          req.logout();
+          return res.redirect('/');
+        } catch (err) {
+          console.log(err); 
+        }
+        }()); }
     }
+
     function getForgot(req, res) {
       res.render('forgot', {
         title: 'Reset Password', 
