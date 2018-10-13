@@ -60,8 +60,6 @@ function mainController() {
   }
   function getProfile(req, res) {
     if (req.user) {
-      var sessions = req.sessionStore.sessions;
-      console.log(sessions); 
       (async function renderProfile() {
         let client;
         try {
@@ -307,7 +305,7 @@ function mainController() {
         }
       }());   
     }  
-  } 
+  }
   
   return {
     getIndex,

@@ -35,13 +35,11 @@
         <input type='submit' value='Send'/> 
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>
-      <% for (var i=0; i < users.length; i++) { %>
-        <% if (users[i].online === "yes") { %> 
-          <li style="color:darkgreen;"><%= users[i].username %></li>
-        <% } else { %>
-          <li style="color:red;"><%= users[i].username %></li>
+      <div id="users">
+        <% for (var i=0; i<(usersOnline.length); i++) { %>
+          <p><%=usersOnline[i]%></p>
         <% } %> 
-      <% } %> 
+      </div> 
     </main>
   </body> 
 </html>

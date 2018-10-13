@@ -20,6 +20,7 @@ const debug = require('debug')('app');
 const helmet = require('helmet'); 
 const cookieParser = require('cookie-parser'); 
 const path = require('path'); 
+const usersOnline = []; 
 const mainRouter = require('./routes/mainRoutes')(); 
 const authRouter = require('./routes/authRoutes')();  
 
@@ -46,6 +47,7 @@ require('./config/passport.js')(app);
 app.use(flash()); 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
+  res.locals.usersOnline = usersOnline || null; 
   var token = req.csrfToken();
   res.cookie('XSRF-TOKEN', token);
   res.locals.csrftoken  = token; 
@@ -74,9 +76,13 @@ const server = app.listen(port, function(){
 const io = require('socket.io').listen(server); 
 
 io.on('connection', function(socket) {
+  socket.on('user signin', function(data) {
+    usersOnline.push(data); 
+  });
   socket.on('chat message', function(data) {
     io.emit('chat message', data); 
   }); 
 }); 
+
 
 module.exports = server; 
