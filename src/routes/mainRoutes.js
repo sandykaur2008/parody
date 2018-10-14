@@ -25,7 +25,7 @@ function router() {
         body('spiritOther').trim().escape(),], postProfile); 
   mainRouter.route('/directory')
       .get(getDirectory); 
-  mainRouter.route('/messages')
+  mainRouter.route('/chat')
       .get(getMessages); 
   return mainRouter; 
 }

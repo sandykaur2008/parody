@@ -194,7 +194,7 @@ describe('check validation (valid entries)', () => {
   }); 
 }); 
 
-describe('check profile/directory rendering & editing', () => {
+describe('check profile/directory/chat rendering & editing', () => {
 
   const user = {
     username: "test",
@@ -349,6 +349,15 @@ describe('check profile/directory rendering & editing', () => {
     authenticatedUser
     .get('/directory/?search=hello')
     .end( (err, res) => {
+      expect(res.text).to.not.include('test2'); 
+      done(); 
+    }); 
+  }); 
+  it ('chat should only show users logged in', (done) => {
+    authenticatedUser
+    .get('/chat')
+    .end((err, res) => {
+      expect(res.text).to.include('test');
       expect(res.text).to.not.include('test2'); 
       done(); 
     }); 

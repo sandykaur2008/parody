@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+  </head> 
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="/dest-js/messages.js"></script>
+  <body>
+    <header>
+      <% include partials/header %>
+    </header>
+    <main>
+      <h1>Chat</h1>
+      <div id="messages"></div> 
+      <form action="/messages/">
+        <input id="m"> 
+        <input type="hidden" id="username" value="<%=user.username%>"> 
+        <input type='submit' value='Send'/> 
+        <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
+      </form>
+      <div id="users">
+      </div> 
+    </main>
+  </body> 
+</html>

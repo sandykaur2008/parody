@@ -2,18 +2,18 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <a href="/">Home</a> 
 <% if (user) { %>
-  <script>
+<script>
   $(function () {
-    var socket = io();
-    var username='<%=user.username%>';  
-    socket.emit('user signin', username); 
-    $('#logout').click(function() {
-      socket.emit('user logout', username); 
-    });
+  var socket = io();
+  var username='<%=user.username%>';  
+  socket.emit('user signin', username); 
+  $('#logout').click(function() {
+    socket.emit('user logout', username); 
   });
-  </script> 
+});
+</script> 
 <a href="/directory/">Directory</a>
-<a href="/messages/">Messages</a> 
+<a href="/chat/">Chat</a> 
 <a href="/profile/<%=user.username%>">Profile</a>
 <a id="logout" href="/auth/logout">Logout</a>
 <% } else { %>

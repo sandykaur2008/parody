@@ -284,7 +284,7 @@ function mainController() {
     if (!req.user) {
       res.render('index', {
         title: 'index',
-        messages: 'You must register/login to access profile page',
+        messages: 'You must register/login to access messages',
         errors: [] 
       }); 
   } else {
@@ -296,8 +296,8 @@ function mainController() {
         const col = db.collection('users'); 
         var users = await col.find({}); 
         var usersArray = await users.toArray();  
-        res.render('messages', {
-          title: 'Messages',
+        res.render('chat', {
+          title: 'Chat',
           users: usersArray
         }); 
       } catch (err) {
