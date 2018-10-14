@@ -18,8 +18,14 @@
         return false; 
       });
       socket.on('chat message', function(data) {
-        $('#messages').append($('<p>').text(data.user + ': ' + data.message)); 
+        if (data.message != '') {
+          $('#messages').append($('<p>').text(data.user + ': ' + data.message)); 
+        } 
       })
+      socket.on("usersOnlineUpdated", function(data) {
+        const usersOnlineUpdated = data.map(username => $(`<p>${username}</p>`)); 
+        $("#users").html(usersOnlineUpdated); 
+      }); 
     }); 
   </script>
   <body>
@@ -36,9 +42,6 @@
         <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
       </form>
       <div id="users">
-        <% for (var i=0; i<(usersOnline.length); i++) { %>
-          <p><%=usersOnline[i]%></p>
-        <% } %> 
       </div> 
     </main>
   </body> 

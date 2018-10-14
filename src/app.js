@@ -77,10 +77,23 @@ const io = require('socket.io').listen(server);
 
 io.on('connection', function(socket) {
   socket.on('user signin', function(data) {
-    usersOnline.push(data); 
+    if (usersOnline.indexOf(data) === -1) {
+      usersOnline.push(data); 
+    }
   });
+
+  const emitUsersOnlineUpdated = () => {
+    io.emit('usersOnlineUpdated', usersOnline); 
+  }; 
+  emitUsersOnlineUpdated(); 
+  setInterval(emitUsersOnlineUpdated, 2500); 
+  
   socket.on('chat message', function(data) {
     io.emit('chat message', data); 
+  }); 
+
+  socket.on('user logout', function(data) {
+    usersOnline.splice(usersOnline.indexOf(data), 1); 
   }); 
 }); 
 
