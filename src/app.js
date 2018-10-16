@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser'); 
 const csrf = require('csurf'); 
 const multer = require('multer'); 
+const { MongoClient } = require('mongodb'); 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/images/uploads/');
@@ -16,10 +17,8 @@ const session = require('express-session');
 const flash= require('connect-flash'); 
 const dotenv = require('dotenv');
 const passport = require('passport'); 
-const debug = require('debug')('app'); 
 const helmet = require('helmet'); 
 const cookieParser = require('cookie-parser'); 
-const path = require('path'); 
 const usersOnline = []; 
 const mainRouter = require('./routes/mainRoutes')(); 
 const authRouter = require('./routes/authRoutes')();  
@@ -27,6 +26,13 @@ const authRouter = require('./routes/authRoutes')();
 dotenv.config();  
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
+const url = 'mongodb://localhost:27017'; 
+if (envString === 'TEST') {
+  var dbName = 'parodyTest';
+} 
+else {
+  var dbName = 'parodyApp';
+}
 const port = process.env['PORT_' + envString]; 
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json()); 
@@ -75,7 +81,29 @@ const server = app.listen(port, function(){
 
 const io = require('socket.io').listen(server); 
 
+async function openChatCol() {
+  let client;
+  client = await MongoClient.connect(url); 
+  const db = client.db(dbName); 
+  const col = db.collection('chat'); 
+  return col; 
+}   
+
+async function getChatCol() {
+  let client;
+  client = await MongoClient.connect(url); 
+  const db = client.db(dbName); 
+  const col = db.collection('chat'); 
+  const chatMessages = await col.find({}); 
+  const chatMessagesArray = chatMessages.toArray();  
+  return chatMessagesArray; 
+}  
+
 io.on('connection', function(socket) {
+  getChatCol().then((chatMessagesArray) => {
+    socket.emit('old msgs', chatMessagesArray); 
+  }); 
+
   socket.on('user signin', function(data) {
     if (usersOnline.indexOf(data) === -1) {
       usersOnline.push(data); 
@@ -89,6 +117,16 @@ io.on('connection', function(socket) {
   setInterval(emitUsersOnlineUpdated, 2500); 
   
   socket.on('chat message', function(data) {
+    openChatCol().then((col) => {
+      const chatMessage = {
+        username: data.username,
+        message: data.message,
+        time: Date.now()
+      }; 
+      if (chatMessage.message !='') {
+        col.insertOne(chatMessage);
+      } 
+    }); 
     io.emit('chat message', data); 
   }); 
 

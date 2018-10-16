@@ -287,25 +287,10 @@ function mainController() {
         messages: 'You must register/login to access messages',
         errors: [] 
       }); 
-  } else {
-    (async function getUsers() {
-      let client;
-      try {
-        client = await MongoClient.connect(url); 
-        const db = client.db(dbName); 
-        const col = db.collection('users'); 
-        var users = await col.find({}); 
-        var usersArray = await users.toArray();  
-        res.render('chat', {
-          title: 'Chat',
-          users: usersArray
-        }); 
-      } catch (err) {
-        console.log(err); 
-        }
-      }());   
-    }  
-  }
+    } else {
+        res.render('chat', { title: 'Chat'}); 
+      }
+  }  
   
   return {
     getIndex,
