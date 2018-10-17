@@ -22,9 +22,10 @@
         <div class="col-md-12">   
           <% for (var i=0; i < users.length; i++) { %>
             <a href="/profile/<%= users[i].username %>">
-              <p><%= users[i].username %></p>
               <img src='<%=users[i].imagePath%>' alt="avatar">
+              <p><%= users[i].username %></p>
             </a> 
+            <br></br> 
           <% } %>
         </div>
       </div>  

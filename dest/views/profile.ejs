@@ -4,23 +4,24 @@
   <body>
     <% include partials/header %>
     <main class="container">
+      <br></br> 
       <div class="row">
         <div class="col-md-12">
-          <h1><%= relevantUser.username %></h1>
+          <img class="center" src='<%=image%>' alt="avatar">
+        </div>
+      </div>   
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="center"><%= relevantUser.username %></h1>
         </div>
       </div> 
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 center">
             <% if (user.username === relevantUser.username) { %>
-              <a href="/editprofile/">Edit Profile</a>
+              <a class="center" href="/editprofile/">Edit Profile</a>
             <% } %> 
           </div>
         </div>   
-      <div class="row">
-        <div class="col-md-12">
-          <img src='<%=image%>' alt="avatar">
-        </div>
-      </div>   
       <div class="row">
         <div class="col-md-12">
           <h2>Weaknesses</h2>

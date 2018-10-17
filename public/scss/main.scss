@@ -91,8 +91,31 @@ main {
   @include setPadding(5em, -bottom);
 } 
 
+img {
+  max-width: 100%;
+  width: 100px; 
+}
+
 .editProfile label {
   font-weight: normal; 
+}
+
+.center {
+  @include text-align; 
+}
+
+img.center {
+  @include display; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.center {
+  @include text-align;
+}
+
+a.center {
+  @include text-align(inline-block); 
 }
 
 .red {
