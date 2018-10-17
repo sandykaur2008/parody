@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <% include partials/head %>
+  <body>
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Welcome to 'Let's Be Honest'</h1>
+        </div> 
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+            <% if (messages) { %>
+              <p class="red"><%= messages %></p>
+            <% } %>
+          </div>
+        </div> 
+      <div class="row">
+        <div class="col-md-12"> 
+          <p>This is a place where you can be upfront about your work habits,
+          experience, weaknesses, strengths, etc. It's all in good fun! </p>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12"> 
+          <h1>Have Questions?</h1>
+          <p>If you have any questions/comments, just fill out the below form
+          to send to the administrator of the site.</p>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% for (var i=0; i < errors.length; i++) { %>
+            <p class="red"><%= errors[i].msg %></p>
+          <% } %>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">  
+          <form name='contactForm' method="post" action=".">
+            <p><textarea name="message" id="message" rows="10" cols="30"></textarea></p>
+            <p><label for="message">Questions/Comments</label></p>
+            <p><input type='text' id="fullname" name="fullname"/></p>
+            <p><label for ="fullname">Full Name</label></p>
+            <p><input type='text' id="email" name="email"/></p>
+            <p><label for="email">Email</label></p> 
+            <p><input type='submit' value='Submit'/></p>
+            <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
+          </form>
+        </div>
+      </div> 
+    </main>
+  </body> 
+</html>

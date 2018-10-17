@@ -2,3 +2,11 @@ env
 node_modules
 parody.code-workspace 
 server-dest
+.env
+.env.test 
+dest/config/ 
+dest/routes/ 
+dest/app.js
+dest/controllers/ 
+.sass-cache/
+public/css/main.*

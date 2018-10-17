@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <% include partials/head %>
+  <body>
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Directory</h1>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="col-md-12">
+          <form action='/directory/' method="GET" name="searchForm">
+            <input type="text" name="search" placeholder="Search directory">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+      <br></br>
+      <div class="row">
+        <div class="col-md-12">   
+          <% for (var i=0; i < users.length; i++) { %>
+            <a href="/profile/<%= users[i].username %>">
+              <img src='<%=users[i].imagePath%>' alt="avatar">
+              <p><%= users[i].username %></p>
+            </a> 
+            <br></br> 
+          <% } %>
+        </div>
+      </div>  
+    </main>
+  </body> 
+</html>
