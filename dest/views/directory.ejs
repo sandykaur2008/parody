@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include partials/head %>
-  </head> 
+  <% include partials/head %>
   <body>
-    <header>
-      <% include partials/header %>
-    </header>
-    <main>
-      <h1>Directory</h1>
-      <form action='/directory/' method="GET" name="searchForm">
-        <input type="text" name="search" placeholder="Search directory"> 
-        <input type="submit" value="Search">
-      </form>  
-      <% for (var i=0; i < users.length; i++) { %>
-        <a href="/profile/<%= users[i].username %>">
-          <li><%= users[i].username %></li>
-          <img src='<%=users[i].imagePath%>' alt="avatar">
-        </a> 
-      <% } %> 
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Directory</h1>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="col-md-12">
+          <form action='/directory/' method="GET" name="searchForm">
+            <input type="text" name="search" placeholder="Search directory">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+      <br></br>
+      <div class="row">
+        <div class="col-md-12">   
+          <% for (var i=0; i < users.length; i++) { %>
+            <a href="/profile/<%= users[i].username %>">
+              <p><%= users[i].username %></p>
+              <img src='<%=users[i].imagePath%>' alt="avatar">
+            </a> 
+          <% } %>
+        </div>
+      </div>  
     </main>
   </body> 
 </html>

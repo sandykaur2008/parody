@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include partials/head %>
-  </head> 
+  <% include partials/head %>
   <body>
-    <header>
-      <% include partials/header %>
-    </header>
-    <main>
-      <h1>Reset Password</h1>
-      <% for (var i=0; i < errors.length; i++) { %>
-        <li><%= errors[i].msg %></li>
-      <% } %> 
-      <form name='pswdresetForm' method="post" action="/auth/reset/<%= token %>">
-        <label for="password">New Password:</label>
-        <input type='password' id="password" name="password"/>
-        <label for "password2">Retype Password:</label> 
-        <input type='password' id="password2" name="password2"/>
-        <input type='submit' value='Submit'/> 
-        <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
-      </form>
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Reset Password</h1>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% for (var i=0; i < errors.length; i++) { %>
+            <p class="red"><%= errors[i].msg %></p>
+          <% } %> 
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <form name='pswdresetForm' method="post" action="/auth/reset/<%= token %>">
+            <p><input type='password' id="password" name="password"/></p>
+            <p><label for="password">New Password:</label></p>
+            <p><input type='password' id="password2" name="password2"/></p>
+            <p><label for "password2">Retype Password:</label></p>
+            <p><input type='submit' value='Submit'/></p>
+            <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
+          </form>
+        </div>
+      </div> 
     </main>
   </body> 
 </html>

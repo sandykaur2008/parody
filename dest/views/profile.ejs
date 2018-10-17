@@ -1,104 +1,152 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include partials/head %>
-  </head> 
+  <% include partials/head %>
   <body>
-    <header>
-      <% include partials/header %>
-    </header>
-    <main>
-      <h1><%= relevantUser.username %></h1>
-      <img src='<%=image%>' alt="avatar">
-      <% if (user.username === relevantUser.username) { %>
-        <a href="/editprofile/">Edit Profile</a>
-      <% } %> 
-      <h2>Weaknesses</h2>
-      <% if (weakness[0][1]) { %>
-        <li>I am physically incapable of being on time</li>
-      <% } %> 
-      <% if (weakness[1][1]) { %>
-        <li>I am super sensitive and will cry in your arms @ some point</li>
-      <% } %> 
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1><%= relevantUser.username %></h1>
+        </div>
+      </div> 
+      <div class="row">
+          <div class="col-md-12">
+            <% if (user.username === relevantUser.username) { %>
+              <a href="/editprofile/">Edit Profile</a>
+            <% } %> 
+          </div>
+        </div>   
+      <div class="row">
+        <div class="col-md-12">
+          <img src='<%=image%>' alt="avatar">
+        </div>
+      </div>   
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Weaknesses</h2>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% if (weakness[0][1]) { %>
+            <p>I am physically incapable of being on time</p>
+          <% } %> 
+          <% if (weakness[1][1]) { %>
+            <p>I am super sensitive and will cry in your arms @ some point</p>
+          <% } %> 
       <% if (weakness[2][1]) { %>
-        <li>I am impatient</li>
-      <% } %> 
-      <% if (weakness[3][1]) { %>
-        <li>I never want to do anything else ever again for as long as I live</li>
-      <% } %> 
-      <% if (weakness[4][1]) { %>
-        <li>I never want to speak to anyone else ever again for as long as I live</li>
-      <% } %> 
-      <% if (weaknessOther) { %>
-        <li><%=weaknessOther%> </li>
-      <% } %>
-      <h2>Strengths</h2>
-      <% if (strength[0][1]) { %>
-        <li>I'm a goddamn genius</li>
-      <% } %> 
-      <% if (strength[1][1]) { %>
-        <li>I'm a thick-skinned sonofabitch</li>
-      <% } %> 
-      <% if (strength[2][1]) { %>
-        <li>No work-life balance - only work</li>
-      <% } %> 
-      <% if (strength[3][1]) { %>
-        <li>Your parents would love me</li>
-      <% } %> 
-      <% if (strength[4][1]) { %>
-        <li>I am great at talking at people, i.e. would make a good corporate drone someday</li>
-      <% } %> 
-      <% if (strengthOther) { %>
-        <li><%=strengthOther%> </li>
-      <% } %>
-      <h2>Allergies</h2>
-      <% if (allergy[0][1]) { %>
-        <li>Furry angels with wet, boopable noses and wagging tails</li>
-      <% } %> 
-      <% if (allergy[1][1]) { %>
-        <li>Furry, bitey angels with claws and whiskers</li>
-      <% } %> 
-      <% if (allergy[2][1]) { %>
-        <li>Excruciating meetings that are so repetitive and so endless I start to wonder if I am <i>living</i> in a recursive function</li>
-      <% } %> 
-      <% if (allergy[3][1]) { %>
-        <li>Dell computers</li>
-      <% } %> 
-      <% if (allergy[4][1]) { %>
-        <li>Social conservatives</li>
-      <% } %> 
-      <% if (allergyOther) { %>
-        <li><%=allergyOther%> </li>
-      <% } %>
-      <h2>Moral Qualms</h2>
-      <% if (qualm[0][1]) { %>
-        <li>I have none</li>
-      <% } %> 
-      <% if (qualm[1][1]) { %>
-        <li>I have all of them</li>
-      <% } %> 
-      <% if (qualm[2][1]) { %>
-        <li>I'll do anything short of breaking the law</li>
-      <% } %> 
-      <% if (qualm[3][1]) { %>
-        <li>I'll do anything short of getting caught >:)</li>
-      <% } %> 
-      <% if (qualmOther) { %>
-        <li><%=qualmOther%> </li>
-      <% } %>
-      <h2>Company Spirit</h2>
-      <% if (spirit[0][1]) { %>
-        <li>*screams and rips shirt* <b>YASSS,</b> <i>(insert company name here)</i> <b>RULES!!!</b></li>
-      <% } %> 
-      <% if (spirit[1][1]) { %>
-        <li>0% interested</li>
-      <% } %> 
-      <% if (spirit[2][1]) { %>
-        <li>W/e, just give me free stuff</li>
-      <% } %> 
-      <% if (spiritOther) { %>
-        <li><%=spiritOther%> </li>
-      <% } %>
+            <p>I am impatient</p>
+          <% } %> 
+          <% if (weakness[3][1]) { %>
+            <p>I never want to do anything else ever again for as long as I live</p>
+          <% } %> 
+          <% if (weakness[4][1]) { %>
+            <p>I never want to speak to anyone else ever again for as long as I live</p>
+          <% } %> 
+          <% if (weaknessOther) { %>
+            <p><%=weaknessOther%> </p>
+          <% } %>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Strengths</h2>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% if (strength[0][1]) { %>
+            <p>I'm a goddamn genius</p>
+          <% } %> 
+          <% if (strength[1][1]) { %>
+            <p>I'm a thick-skinned sonofabitch</p>
+          <% } %> 
+          <% if (strength[2][1]) { %>
+            <p>No work-life balance - only work</p>
+          <% } %> 
+          <% if (strength[3][1]) { %>
+            <p>Your parents would love me</p>
+          <% } %> 
+          <% if (strength[4][1]) { %>
+            <p>I am great at talking at people, i.e. would make a good corporate drone someday</p>
+          <% } %> 
+          <% if (strengthOther) { %>
+            <p><%=strengthOther%> </p>
+          <% } %>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Allergies</h2>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% if (allergy[0][1]) { %>
+            <p>Furry angels with wet, boopable noses and wagging tails</p>
+          <% } %> 
+          <% if (allergy[1][1]) { %>
+            <p>Furry, bitey angels with claws and whiskers</p>
+          <% } %> 
+          <% if (allergy[2][1]) { %>
+            <p>Excruciating meetings that are so repetitive and so endless I start to wonder if I am <i>living</i> in a recursive function</p>
+          <% } %> 
+          <% if (allergy[3][1]) { %>
+            <p>Dell computers</p>
+          <% } %> 
+          <% if (allergy[4][1]) { %>
+            <p>Social conservatives</p>
+          <% } %> 
+          <% if (allergyOther) { %>
+            <p><%=allergyOther%> </p>
+          <% } %>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Moral Qualms</h2>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% if (qualm[0][1]) { %>
+            <p>I have none</p>
+          <% } %> 
+          <% if (qualm[1][1]) { %>
+            <p>I have all of them</p>
+          <% } %> 
+          <% if (qualm[2][1]) { %>
+            <p>I'll do anything short of breaking the law</p>
+          <% } %> 
+          <% if (qualm[3][1]) { %>
+            <p>I'll do anything short of getting caught >:)</p>
+          <% } %> 
+          <% if (qualmOther) { %>
+            <p><%=qualmOther%> </p>
+          <% } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Company Spirit</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <% if (spirit[0][1]) { %>
+            <p>*screams and rips shirt* <b>YASSS,</b> <i>(insert company name here)</i> <b>RULES!!!</b></p>
+          <% } %> 
+          <% if (spirit[1][1]) { %>
+            <p>0% interested</p>
+          <% } %> 
+          <% if (spirit[2][1]) { %>
+            <p>W/e, just give me free stuff</p>
+          <% } %> 
+          <% if (spiritOther) { %>
+            <p><%=spiritOther%> </p>
+          <% } %>
+        </div>
+      </div> 
     </main>
   </body> 
 </html>

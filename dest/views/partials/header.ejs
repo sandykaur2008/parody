@@ -1,22 +1,26 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<a href="/">Home</a> 
-<% if (user) { %>
-<script>
-  $(function () {
-  var socket = io();
-  var username='<%=user.username%>';  
-  socket.emit('user signin', username); 
-  $('#logout').click(function() {
-    socket.emit('user logout', username); 
-  });
-});
-</script> 
-<a href="/directory/">Directory</a>
-<a href="/chat/">Chat</a> 
-<a href="/profile/<%=user.username%>">Profile</a>
-<a id="logout" href="/auth/logout">Logout</a>
-<% } else { %>
-<a href="/auth/login">Login</a>
-<a href="/auth/register">Register</a>
-<% } %>
+<header class="navbar navbar-default navbar-fixed-top"> 
+  <div class="container"> 
+    <a href="/">Home</a> 
+    <% if (user) { %>
+    <script>
+      $(function () {
+      var socket = io();
+      var username='<%=user.username%>';  
+      socket.emit('user signin', username); 
+      $('#logout').click(function() {
+        socket.emit('user logout', username); 
+      });
+    });
+    </script> 
+    <a href="/directory/">Directory</a>
+    <a href="/chat/">Chat</a> 
+    <a href="/profile/<%=user.username%>">Profile</a>
+    <a id="logout" href="/auth/logout">Logout</a>
+    <% } else { %>
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
+    <% } %>
+  </div> 
+</header> 

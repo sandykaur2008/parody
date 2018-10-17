@@ -1,0 +1,153 @@
+//mixins
+@mixin text-align($x: center) {
+  text-align: $x;
+}
+
+@mixin display($x: block) {
+  display: $x;
+}
+
+@mixin position($x: relative) {
+  position: $x;
+}
+
+@mixin setPadding($value, $side: null) {
+  padding#{$side}: $value
+}
+
+@mixin respond-to($val, $query) {
+  @media screen and ($val: $query) {
+      @content;
+  }
+}
+
+/*headings*/
+h1 {
+  @include setPadding(0.5em, -bottom);
+}
+
+/*header*/
+header {
+  .container {
+  @include setPadding(1em, -top);
+  }
+  a {
+    @include setPadding(1em, -right);
+  }
+}
+
+.navbar-fixed-top {
+  @include position; 
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+/*.topnav {
+  overflow: hidden;
+  a {
+    &:not(:first-child) {
+      @include respond-to(max-width, 400px) {
+        @include display(none);
+      }
+    }
+    &.icon {
+      @include respond-to(max-width, 400px) {
+        float: right;
+        @include display;
+      }
+    }
+  }
+  .icon {
+    @include display(none);
+    @include respond-to(max-width, 400px) {
+      float: right;
+      @include display;
+    }
+  }
+  &.responsive {
+    @include respond-to(max-width, 400px) {
+      @include position;
+    }
+    a {
+      @include respond-to(max-width, 400px) {
+        float: none;
+        @include display;
+        @include text-align;
+      }
+      &.icon {
+        @include respond-to(max-width, 400px) {
+          @include position(absolute);
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+}*/
+/*content*/
+main {
+  @include setPadding(5em, -bottom);
+} 
+
+.editProfile label {
+  font-weight: normal; 
+}
+
+.red {
+  color: red;
+  font-style: italic; 
+}
+
+#users {
+  color: yellowgreen; 
+}
+
+/*img {
+  max-width: 100%;
+  width: 300px;
+}
+
+article {
+  max-width: 50em;
+  p {
+    @include setPadding(1em, -top);
+    @include setPadding(1em, -bottom);
+  }
+  a {
+    @include display(inline-block);
+  }
+}
+
+div.col-md-4 {
+  @include respond-to(max-width, 991px) {
+    @include text-align;
+  }
+}
+
+section.center {
+  @include text-align;
+  @include setPadding(2em, -bottom);
+  h1 {
+    @include setPadding(0, -bottom);
+  }
+}
+
+p.padding {
+  @include setPadding(1em, -top);
+  @include setPadding(1em, -bottom);
+}
+
+article.detail img {
+  width: 500px;
+}
+
+table.post {
+  img {
+    width: 100px;
+  }
+  td {
+    @include setPadding($value: 0 1em);
+  }
+}*/

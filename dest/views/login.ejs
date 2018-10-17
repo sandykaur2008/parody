@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include partials/head %>
-  </head> 
+  <% include partials/head %>
   <body>
-    <header>
-      <% include partials/header %>
-    </header>
-    <main>
-      <h1>Login</h1>
-      <% if (message) { %>
-        <p><%= message %></p>
-      <% } %>
-      <a href="/auth/forgot">Forgot Password?</a>
-      <form name='loginForm' method="post" action="/auth/login">
-        <label for="username">Username:</label>
-        <input type='text' id="username" name="username"/>
-        <label for="password">Password:</label>
-        <input type='password' id="password" name="password"/>
-        <input type='submit' value='Submit'/> 
-        <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
-      </form>
+    <% include partials/header %>
+    <main class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Login</h1>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <% if (message) { %>
+            <p class="red"><%= message %></p>
+          <% } %>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-md-12">
+          <form name='loginForm' method="post" action="/auth/login">
+            <p><input type='text' id="username" name="username"/></p>
+            <p><label for="username">Username</label></p>
+            <p><input type='password' id="password" name="password"/></p>
+            <p><label for="password">Password</label></p>
+            <p><input type='submit' value='Submit'/></p> 
+            <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
+          </form>
+        </div>
+      </div> 
+      <div class="row">
+          <div class="col-md-12">
+            <a href="/auth/forgot">Forgot Password?</a>
+          </div>
+        </div> 
     </main>
   </body> 
 </html>
