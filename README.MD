@@ -44,9 +44,6 @@ Make sure you're in root directory of repo and execute:
 # Authors
 Satinder Kaur 
 
-# License
-All images are mine. 
-
 # Acknowledgments
 Thanks, @github/markalexandercastillo, for your help in getting the chat working the way I like it!
 :relaxed: 
