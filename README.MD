@@ -1,5 +1,5 @@
 # Project Title
-This project is called "Let's be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with node.js and express, along with socket.io, passport, ejs, and mocha.  
+This project is called "Let's be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha.  
 
 # Getting Started
 To contribute:
@@ -28,6 +28,7 @@ Make sure you're in root directory of repo and execute:
 
 ## To actually run website once repo cloned, css compiled, and dependencies installed
 - Navigate to root directory
+- Make sure Mongo server is running (open separate terminal window and type ``` mongod ```)
 - Execute: 
 
 ```npm start```
@@ -42,9 +43,6 @@ Make sure you're in root directory of repo and execute:
 
 # Authors
 Satinder Kaur 
-
-# License
-All images are mine. 
 
 # Acknowledgments
 Thanks, @github/markalexandercastillo, for your help in getting the chat working the way I like it!
