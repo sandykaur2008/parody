@@ -5,13 +5,15 @@
   "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=development node dest/app.js",
-    "test": "NODE_ENV=test mocha --timeout 150000 test/test.js --exit",
-    "build:js": "babel src -d dest --presets env"
+    "test": "NODE_ENV=test mocha --timeout 150000 desttest/test.js --exit",
+    "build:js": "babel src -d dest --presets env", 
+    "build:testjs": "babel srctest -d desttest --presets env"
   },
   "author": "Satinder Kaur",
   "license": "",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",

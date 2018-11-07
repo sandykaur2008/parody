@@ -1,8 +1,9 @@
 'use strict';
-const passport = require('passport'); 
-require('./strategies/local.strategy')(); 
+import passport from 'passport'; 
+import {localStrategy} from './strategies/local.strategy';
+localStrategy();  
 
-function passportConfig(app) {
+export function passportConfig(app) {
   app.use(passport.initialize());
   app.use(passport.session()); 
 
@@ -16,4 +17,3 @@ function passportConfig(app) {
 
 }
 
-module.exports = passportConfig; 

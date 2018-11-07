@@ -1,13 +1,13 @@
 'use strict';
-const server = require('../dest/app'), 
-    expect = require('chai').expect, 
-    request = require('request'), 
-    nodemailer = require('nodemailer'),
-    { MongoClient } = require('mongodb'), 
-    mockTransport = require('nodemailer-mock-transport'); 
-    const supertest = require('supertest'); 
-    const url = 'mongodb://localhost:27017'; 
-    const dbName = 'parodyTest';
+
+import {server} from '../dest/app'; 
+import getDB from '../dest/config/db';  
+import {expect} from 'chai'; 
+import request from 'request'; 
+import nodemailer from 'nodemailer'; 
+import mockTransport from 'nodemailer-mock-transport'; 
+import supertest from 'supertest'; 
+const dbName = 'parodyTest';
 
 describe('server response', () => {
 
@@ -172,8 +172,7 @@ describe('check validation (valid entries)', () => {
 
   it ('should reset password via email link', (done) => {
     async function findUser() {
-        var client = await MongoClient.connect(url); 
-        const db = client.db(dbName); 
+        const db = await getDB(dbName); 
         const col = db.collection('users'); 
         const user = await col.findOne({email: "test@example.com"});          
         return user.resetToken; 

@@ -1,10 +1,9 @@
-'use strict'; 
-const express = require('express');
+'use strict';   
+import express from 'express';
 const app = express(); 
-const bodyParser = require('body-parser'); 
-const csrf = require('csurf'); 
-const multer = require('multer'); 
-const { MongoClient } = require('mongodb'); 
+import bodyParser from 'body-parser'; 
+import csrf from 'csurf'; 
+import multer from 'multer'; 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/images/uploads/');
@@ -13,26 +12,19 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now());
   } 
   }); 
-const session = require('express-session');
-const flash= require('connect-flash'); 
-const dotenv = require('dotenv');
-const passport = require('passport'); 
-const helmet = require('helmet'); 
-const cookieParser = require('cookie-parser'); 
-const usersOnline = []; 
-const mainRouter = require('./routes/mainRoutes')(); 
-const authRouter = require('./routes/authRoutes')();  
+import session from 'express-session';
+import flash from 'connect-flash'; 
+import dotenv from 'dotenv';
+import helmet from 'helmet'; 
+import cookieParser from 'cookie-parser'; 
+import {mrouter} from './routes/mainRoutes'; 
+const mainRouter = mrouter(); 
+import {arouter} from './routes/authRoutes';  
+const authRouter = arouter(); 
 
 dotenv.config();  
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
-const url = 'mongodb://localhost:27017'; 
-if (envString === 'TEST') {
-  var dbName = 'parodyTest';
-} 
-else {
-  var dbName = 'parodyApp';
-}
 const port = process.env['PORT_' + envString]; 
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json()); 
@@ -49,11 +41,12 @@ app.use(
   csrf({ ignoreMethods: ['GET', 'POST']}): 
   csrf()
 ); 
-require('./config/passport.js')(app); 
+import {passportConfig} from './config/passport.js';
+passportConfig(app);  
 app.use(flash()); 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
-  res.locals.usersOnline = usersOnline || null; 
+  res.locals.usersOnline = require('./config/socket').usersOnline || null; 
   var token = req.csrfToken();
   res.cookie('XSRF-TOKEN', token);
   res.locals.csrftoken  = token; 
@@ -73,67 +66,9 @@ app.use(function (req, res, next) {
   res.status(500).render('500', {title: '500'}); 
 }); 
 
-
-
-const server = app.listen(port, function(){
+export const server = app.listen(port, function(){
   console.log('listening on port ' + `${port}`); 
 }); 
 
-const io = require('socket.io').listen(server); 
+const io = require('./config/socket').listen(server); 
 
-async function openChatCol() {
-  let client;
-  client = await MongoClient.connect(url); 
-  const db = client.db(dbName); 
-  const col = db.collection('chat'); 
-  return col; 
-}   
-
-async function getChatCol() {
-  let client;
-  client = await MongoClient.connect(url); 
-  const db = client.db(dbName); 
-  const col = db.collection('chat'); 
-  const chatMessages = await col.find({}); 
-  const chatMessagesArray = chatMessages.toArray();  
-  return chatMessagesArray; 
-}  
-
-io.on('connection', function(socket) {
-  getChatCol().then((chatMessagesArray) => {
-    socket.emit('old msgs', chatMessagesArray); 
-  }); 
-
-  socket.on('user signin', function(data) {
-    if (usersOnline.indexOf(data) === -1) {
-      usersOnline.push(data); 
-    }
-  });
-
-  const emitUsersOnlineUpdated = () => {
-    io.emit('usersOnlineUpdated', usersOnline); 
-  }; 
-  emitUsersOnlineUpdated(); 
-  setInterval(emitUsersOnlineUpdated, 2500); 
-  
-  socket.on('chat message', function(data) {
-    openChatCol().then((col) => {
-      const chatMessage = {
-        username: data.username,
-        message: data.message,
-        time: Date.now()
-      }; 
-      if (chatMessage.message !='') {
-        col.insertOne(chatMessage);
-      } 
-    }); 
-    io.emit('chat message', data); 
-  }); 
-
-  socket.on('user logout', function(data) {
-    usersOnline.splice(usersOnline.indexOf(data), 1); 
-  }); 
-}); 
-
-
-module.exports = server; 
