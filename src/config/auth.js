@@ -23,7 +23,6 @@ export async function addUser({ username, password, email }) {
       {username: username},
       {email: email }
     ]}); 
-    console.log(exists); 
     if (exists === null) {
       const results = await col.insertOne(user);
       return results;

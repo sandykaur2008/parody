@@ -7,8 +7,7 @@
     "start": "NODE_ENV=development node dest/app.js",
     "test": "NODE_ENV=test mocha --timeout 150000 desttest/test.js --exit",
     "build:js": "babel src -d dest --presets env", 
-    "build:testjs": "babel srctest -d desttest --presets env",
-    "build:publicjs": "babel public/src-js -d public/dest-js --presets env"
+    "build:testjs": "babel srctest -d desttest --presets env"
   },
   "author": "Satinder Kaur",
   "license": "",
