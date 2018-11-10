@@ -12,19 +12,19 @@ $(function () {
     return false;
   });
 
-  socket.on('old msgs', function(chatMessagesArray){
-    for(var i = 0; i<chatMessagesArray.length; i++){
-      displayMsg(chatMessagesArray[i]); 
-    }
-  }); 
-
-  socket.on('chat message', function (data) {
-    if (data.message != '') {
-      displayMsg(data); 
+  socket.on('old msgs', function (chatMessagesArray) {
+    for (var i = 0; i < chatMessagesArray.length; i++) {
+      displayMsg(chatMessagesArray[i]);
     }
   });
 
-  function displayMsg(data){
+  socket.on('chat message', function (data) {
+    if (data.message != '') {
+      displayMsg(data);
+    }
+  });
+
+  function displayMsg(data) {
     $('#messages').append($('<p>').text(data.username + ': ' + data.message));
   }
   socket.on("usersOnlineUpdated", function (data) {

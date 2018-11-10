@@ -1,5 +1,6 @@
 'use strict';
 import * as main from '../config/main';
+import * as traits from '../config/traits'; 
 import { validationResult } from 'express-validator/check'; 
 import dotenv from 'dotenv';
 dotenv.config();  
@@ -50,7 +51,8 @@ export function postIndex(req, res) {
         else {
           return res.render('profile', {
             title: 'Profile',  
-            dbUser: results
+            dbUser: results, 
+            traits: traits 
           }); 
         }
       }); 
@@ -73,10 +75,11 @@ export function editProfile(req, res) {
     }); 
   } 
   else {
-    main.editProfile(req.user).then((results) => {
+    main.renderProfile(req.user).then((results) => {
       return res.render('editprofile', {
         title: "Edit Profile",
-        dbUser: results
+        dbUser: results, 
+        traits: traits
       }); 
     });  
   }

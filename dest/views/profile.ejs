@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <% include partials/head %>
+  <% include partials/head %>  
   <body>
     <% include partials/header %>
     <main class="container">
@@ -29,24 +29,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (dbUser.weakness[0][1]) { %>
-            <p>I am physically incapable of being on time</p>
+          <% if (dbUser.weakness) { %> 
+            <% traits.weakness.forEach(weakness => { %>
+              <% if (dbUser.weakness.indexOf(weakness.id) > -1) { %>  
+                <p><%=weakness.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.weaknessOther) { %> 
+            <p><%=dbUser.weaknessOther%></p>
           <% } %> 
-          <% if (dbUser.weakness[1][1]) { %>
-            <p>I am super sensitive and will cry in your arms @ some point</p>
-          <% } %> 
-      <% if (dbUser.weakness[2][1]) { %>
-            <p>I am impatient</p>
-          <% } %> 
-          <% if (dbUser.weakness[3][1]) { %>
-            <p>I never want to do anything else ever again for as long as I live</p>
-          <% } %> 
-          <% if (dbUser.weakness[4][1]) { %>
-            <p>I never want to speak to anyone else ever again for as long as I live</p>
-          <% } %> 
-          <% if (dbUser.weaknessOther) { %>
-            <p><%=dbUser.weaknessOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -56,24 +48,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (dbUser.strength[0][1]) { %>
-            <p>I'm a goddamn genius</p>
+          <% if (dbUser.strength) { %>
+            <% traits.strength.forEach(strength => { %>
+              <% if (dbUser.strength.indexOf(strength.id) > -1) { %>  
+                <p><%=strength.label%></p>
+              <% } %>  
+            <% }); %>
           <% } %> 
-          <% if (dbUser.strength[1][1]) { %>
-            <p>I'm a thick-skinned sonofabitch</p>
+          <% if (dbUser.strengthOther) { %> 
+            <p><%=dbUser.strengthOther%></p>
           <% } %> 
-          <% if (dbUser.strength[2][1]) { %>
-            <p>No work-life balance - only work</p>
-          <% } %> 
-          <% if (dbUser.strength[3][1]) { %>
-            <p>Your parents would love me</p>
-          <% } %> 
-          <% if (dbUser.strength[4][1]) { %>
-            <p>I am great at talking at people, i.e. would make a good corporate drone someday</p>
-          <% } %> 
-          <% if (dbUser.strengthOther) { %>
-            <p><%=dbUser.strengthOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -83,24 +67,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (dbUser.allergy[0][1]) { %>
-            <p>Furry angels with wet, boopable noses and wagging tails</p>
+          <% if (dbUser.allergy) { %>
+            <% traits.allergy.forEach(allergy => { %>
+              <% if (dbUser.allergy.indexOf(allergy.id) > -1) { %>
+                <p><%= allergy.label %></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.allergyOther) { %> 
+            <p><%=dbUser.allergyOther%></p>
           <% } %> 
-          <% if (dbUser.allergy[1][1]) { %>
-            <p>Furry, bitey angels with claws and whiskers</p>
-          <% } %> 
-          <% if (dbUser.allergy[2][1]) { %>
-            <p>Excruciating meetings that are so repetitive and so endless I start to wonder if I am <i>living</i> in a recursive function</p>
-          <% } %> 
-          <% if (dbUser.allergy[3][1]) { %>
-            <p>Dell computers</p>
-          <% } %> 
-          <% if (dbUser.allergy[4][1]) { %>
-            <p>Social conservatives</p>
-          <% } %> 
-          <% if (dbUser.allergyOther) { %>
-            <p><%=dbUser.allergyOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -110,21 +86,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (dbUser.qualm[0][1]) { %>
-            <p>I have none</p>
+          <% if (dbUser.qualm) { %>
+            <% traits.qualm.forEach(qualm => { %>
+              <% if (dbUser.qualm.indexOf(qualm.id) > -1) { %>  
+                <p><%=qualm.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.qualmOther) { %> 
+            <p><%=dbUser.qualmOther%></p>
           <% } %> 
-          <% if (dbUser.qualm[1][1]) { %>
-            <p>I have all of them</p>
-          <% } %> 
-          <% if (dbUser.qualm[2][1]) { %>
-            <p>I'll do anything short of breaking the law</p>
-          <% } %> 
-          <% if (dbUser.qualm[3][1]) { %>
-            <p>I'll do anything short of getting caught >:)</p>
-          <% } %> 
-          <% if (dbUser.qualmOther) { %>
-            <p><%=dbUser.qualmOther%> </p>
-          <% } %>
         </div>
       </div>
       <div class="row">
@@ -134,18 +105,16 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <% if (dbUser.spirit[0][1]) { %>
-            <p>*screams and rips shirt* <b>YASSS,</b> <i>(insert company name here)</i> <b>RULES!!!</b></p>
+          <% if (dbUser.spirit) { %>
+            <% traits.spirit.forEach(spirit => { %>
+              <% if (dbUser.spirit.indexOf(spirit.id) > -1) { %>  
+                <p><%=spirit.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.spiritOther) { %> 
+            <p><%=dbUser.spiritOther%></p>
           <% } %> 
-          <% if (dbUser.spirit[1][1]) { %>
-            <p>0% interested</p>
-          <% } %> 
-          <% if (dbUser.spirit[2][1]) { %>
-            <p>W/e, just give me free stuff</p>
-          <% } %> 
-          <% if (dbUser.spiritOther) { %>
-            <p><%=dbUser.spiritOther%> </p>
-          <% } %>
         </div>
       </div> 
     </main>

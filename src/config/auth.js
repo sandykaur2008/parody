@@ -8,41 +8,6 @@ dotenv.config();
 const env = process.env.NODE_ENV; 
 const envString = env.toUpperCase(); 
 
-const defaultProfileChecks = {
-  allergy: [
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null]
-  ],
-  qualm: [
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null],
-  ],
-  spirit: [
-    ["0", null],
-    ["0", null],
-    ["0", null],
-  ],
-  strength: [
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null]
-  ],
-  weakness: [
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null],
-    ["0", null]
-  ]
-}; 
-
 export async function addUser({ username, password, email }) {
   try {
     const db = await getDB(); 
@@ -52,8 +17,7 @@ export async function addUser({ username, password, email }) {
       imagePath: '/images/uploads/default.png',
       username: username, 
       password: hashedPassword,
-      email: email,
-      ...defaultProfileChecks
+      email: email
     }; 
     const usernameExists = await col.findOne({username: user.username}); 
     const emailExists = await col.findOne({ email: user.email }); 

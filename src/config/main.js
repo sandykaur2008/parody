@@ -32,69 +32,8 @@ export async function renderProfile({username}) {
   }
 } 
 
-function checkProperty(property, array) { 
-  for (let i = 0; i < property.length; i++) { 
-    var checked = property[i][1]; 
-    if (checked === '1' ) {
-      array.push("checked");  
-    } else {
-      array.push("");  
-    }
-  }
-  return array; 
-}
-
-export async function editProfile({username}) {
-  const weaknessArray = []; 
-  const strengthArray = [];
-  const qualmArray = [];
-  const spiritArray = [];
-  const allergyArray = []; 
-
-  try {
-    const db = await getDB();  
-    const col = db.collection('users'); 
-    const dbUser= await col.findOne({username: username});
-    const updatedweaknessArray = checkProperty(dbUser.weakness, weaknessArray); 
-    const updatedstrengthArray = checkProperty(dbUser.strength, strengthArray); 
-    const updatedqualmArray = checkProperty(dbUser.qualm, qualmArray);
-    const updatedallergyArray = checkProperty(dbUser.allergy, allergyArray);
-    const updatedspiritArray = checkProperty(dbUser.spirit, spiritArray); 
-    const results = {
-      dbUser,
-      updatedweaknessArray,
-      updatedstrengthArray,
-      updatedqualmArray,
-      updatedallergyArray,
-      updatedspiritArray
-    }; 
-    return results; 
-  } catch (err) {
-    console.log(err); 
-  }  
-}
-
-export function createArray(requestData, requestArray) {
-  Object.values(requestData).forEach(value => {
-    if (!Array.isArray(value)) {
-      requestArray.push(Array.from([value, null])); 
-    } else { requestArray.push(value); }
-    }); 
-    return requestArray; 
-}
-
 export async function postProfile({weakness, weaknessOther, strength, strengthOther, 
   allergy, allergyOther, qualm, qualmOther, spirit, spiritOther}, {username}, file) {
-    const weaknessArray = []; 
-    const strengthArray = [];
-    const qualmArray = [];
-    const spiritArray = [];
-    const allergyArray = []; 
-    createArray(weakness, weaknessArray);
-    createArray(strength, strengthArray);
-    createArray(allergy, allergyArray);
-    createArray(qualm, qualmArray);
-    createArray(spirit, spiritArray);
     try {
       const db = await getDB(); 
       const col = db.collection('users'); 
@@ -109,15 +48,15 @@ export async function postProfile({weakness, weaknessOther, strength, strengthOt
             {
               $set: { 
               imagePath: imagePath,  
-              weakness: weaknessArray,
+              weakness: weakness,
               weaknessOther: weaknessOther,
-              strength: strengthArray,
+              strength: strength,
               strengthOther: strengthOther,
-              allergy: allergyArray,
+              allergy: allergy,
               allergyOther: allergyOther,
-              qualm: qualmArray,
+              qualm: qualm,
               qualmOther: qualmOther,
-              spirit: spiritArray,
+              spirit: spirit,
               spiritOther: spiritOther
           }
             }
