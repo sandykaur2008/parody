@@ -21,8 +21,6 @@ export function localStrategy() {
             done(null, false, {message: 'invalid username'}); 
           }
           else if (bcrypt.compareSync(password, user.password) === true) {
-            await col.updateOne({username: user.username}, {
-              $set: { online: "yes"}}); 
             done(null, user); 
           } else {
             done(null, false, {message: 'invalid password'}); 

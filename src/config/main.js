@@ -76,12 +76,12 @@ export async function getDirectory({search}) {
       try {
         const db = await getDB(); 
         const col = db.collection('users'); 
-        var users = await col.find({}); 
-        var usersArray = await users.toArray(); 
+        const users = await col.find({}); 
+        const usersArray = await users.toArray(); 
         if (search) {
               const regex = new RegExp(escapeRegex(search), 'gi');
-              var users = await col.find({username: regex});
-              var usersArray = await users.toArray(); 
+              const users = await col.find({username: regex});
+              const usersArray = await users.toArray(); 
               return usersArray; 
             } else {
               return usersArray;  

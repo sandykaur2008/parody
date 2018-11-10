@@ -27,8 +27,8 @@ export function arouter() {
      failureFlash: true
     }), 
       function (req, res) {
-        var username = req.user.username;
-        var successRedirect = '/profile/' + username; 
+        const username = req.user.username;
+        const successRedirect = '/profile/' + username; 
         res.redirect(successRedirect); 
       });  
   authRouter.route('/logout')

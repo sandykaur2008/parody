@@ -47,10 +47,9 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   res.locals.usersOnline = require('./config/socket').usersOnline || null; 
-  var token = req.csrfToken();
+  let token = req.csrfToken();
   res.cookie('XSRF-TOKEN', token);
   res.locals.csrftoken  = token; 
-  console.log("csrf token = " + token); 
   next();
 });
 app.use(helmet()); 

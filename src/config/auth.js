@@ -19,13 +19,17 @@ export async function addUser({ username, password, email }) {
       password: hashedPassword,
       email: email
     }; 
-    const usernameExists = await col.findOne({username: user.username}); 
-    const emailExists = await col.findOne({ email: user.email }); 
-    if (usernameExists === null && emailExists === null) {
+    const exists = await col.findOne({$or: [
+      {username: username},
+      {email: email }
+    ]}); 
+    console.log(exists); 
+    if (exists === null) {
       const results = await col.insertOne(user);
+      return results;
     }
   } catch (err) {
-      debug(err); 
+      console.log(err); 
     }
 }
 
@@ -67,7 +71,7 @@ export async function sendReset({email}, {host}) {
         return mailOpts; 
       } 
   } catch (err) {
-    debug(err); 
+    console.log(err); 
     }
   }  
 
@@ -83,7 +87,7 @@ export async function reset({token}) {
         return user.resetToken; 
       } 
   } catch (err) {
-    debug(err); 
+    console.log(err); 
     }
 } 
 
@@ -113,6 +117,6 @@ export async function doReset({password}, {token}) {
         return mailOpts;  
       } 
   } catch (err) {
-      debug(err); 
+      console.log(err); 
     }
 } 

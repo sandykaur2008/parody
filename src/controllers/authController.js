@@ -21,7 +21,7 @@ export function postRegister(req, res) {
   auth.addUser(req.body).then((results) => {
     if (results) {
       req.login(results.ops[0], () => {
-        res.redirect('/profile/' + username);
+        res.redirect('/profile/' + req.body.username);
       });} else {
         return res.render('register', {
           title: 'Register',
