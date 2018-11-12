@@ -8,5 +8,7 @@ dest/config/
 dest/routes/ 
 dest/app.js
 dest/controllers/ 
+desttest/
 .sass-cache/
 public/css/main.*
+public/src-js/

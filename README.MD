@@ -16,15 +16,20 @@ Aside from a working browser, you will also need:
 - Sass: https://sass-lang.com/install 
 - the dependencies in package.json
 
+## To install dependencies in requirements.txt
+Make sure you're in root directory of repo and execute:
+
+```npm install```
+
 ## To build css from scss files
 To run Sass from the command line, make sure you're in root directory of repo and execute:
 
 ```sass public/scss/main.scss public/css/main.css```
 
-## To install dependencies in requirements.txt
+## To build files via babel
 Make sure you're in root directory of repo and execute:
 
-```npm install```
+```npm build:js ```
 
 ## To actually run website once repo cloned, css compiled, and dependencies installed
 - Navigate to root directory

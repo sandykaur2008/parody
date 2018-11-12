@@ -11,7 +11,7 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <img src='<%=image%>' alt="avatar">
+          <img src='<%=dbUser.imagePath%>' alt="avatar"> 
           <br></br> 
         </div>
       </div>
@@ -28,23 +28,12 @@
         </div> 
         <div class="row">
           <div class="col-md-12">
-            <input type="hidden" name="weakness[late]" value="0">
-            <input type="hidden" name="weakness[cry]" value="0">
-            <input type="hidden" name="weakness[impatient]" value="0">
-            <input type="hidden" name="weakness[lazy]" value="0">
-            <input type="hidden" name="weakness[quiet]" value="0">
-            <p><input type="checkbox" id="weakness late" name="weakness[late]" value="1" <%=weaknessArray[0]%>>
-            <label for "weakness late">I am physically incapable of being on time</label></p>
-            <p><input type="checkbox" id="weakness cry" name="weakness[cry]" value="1" <%=weaknessArray[1]%>>
-            <label for "weakness cry">I am super sensitive and will cry in your arms @ some point</label></p>
-            <p><input type="checkbox" id="weakness impatient" name="weakness[impatient]" value="1" <%=weaknessArray[2]%>>
-            <label for="weakness impatient">I am impatient</label></p>
-            <p><input type="checkbox" id="weakness lazy" name="weakness[lazy]" value="1" <%=weaknessArray[3]%>>
-            <label for="weakness lazy">I never want to do anything else ever again for as long as I live</label></p>
-            <p><input type="checkbox" id= "weakness quiet" name="weakness[quiet]" value="1" <%=weaknessArray[4]%>>
-            <label for="weakness quiet">I never want to speak to anyone else ever again for as long as I live</label></p>
+            <% traits.weakness.forEach(weakness => { %>
+              <p><input type="checkbox" id='<%=weakness.id%>' name="weakness[]" value='<%=weakness.id%>' <% if (dbUser.weakness) { %> <%= (dbUser.weakness.indexOf(weakness.id) > -1) ? "checked" : "" %> <% } %> >
+              <label for='<%=weakness.id%>'><%=weakness.label%> </label></p>
+            <% }); %> 
             <p><label for="weakness other">Other:</label>
-            <input type="text" id="weakness other" name="weaknessOther" value="<%=weaknessOther%>" ></p>
+            <input type="text" id="weakness other" name="weaknessOther" value="<%=dbUser.weaknessOther%>"></p>
           </div>
         </div>
         <div class="row">
@@ -54,23 +43,12 @@
         </div>
         <div class="row">
           <div class="col-md-12"> 
-            <input type="hidden" name="strength[genius]" value="0">
-            <input type="hidden" name="strength[tough]" value="0">
-            <input type="hidden" name="strength[work]" value="0">
-            <input type="hidden" name="strength[parents]" value="0">
-            <input type="hidden" name="strength[loud]" value="0">
-            <p><input type="checkbox" id="strength genius" name="strength[genius]" value="1" <%=strengthArray[0]%>>
-            <label for="strength genius">I'm a goddamn genius</label></p>
-            <p><input type="checkbox" id="strength tough" name="strength[tough]" value="1" <%=strengthArray[1]%>>
-            <label for="strength tough">I'm a thick-skinned sonofabitch</label></p>
-            <p><input type="checkbox" id="strength work" name="strength[work]" value="1" <%=strengthArray[2]%>> 
-            <label for="strength work">No work-life balance - only work</label></p>
-            <p><input type="checkbox" id="strength parents" name="strength[parents]" value="1" <%=strengthArray[3]%>> 
-            <label for="strengh parents">Your parents would love me</label></p>
-            <p><input type="checkbox" id="stength loud" name="strength[loud]" value="1" <%=strengthArray[4]%>>
-            <label for="strength loud">I am great at talking at people, i.e. would make a good corporate drone someday</label></p>
+            <% traits.strength.forEach(strength => { %>
+              <p><input type="checkbox" id='<%=strength.id%>' name="strength[]" value='<%=strength.id%>' <% if (dbUser.strength) { %> <%= (dbUser.strength.indexOf(strength.id) > -1) ? 'checked' : '' %> <% } %>>
+              <label for='<%=strength.id%>'><%=strength.label%> </label></p>
+            <% }); %> 
             <p><label for="strength other">Other:</label>
-            <input type="text" id="strength other" name="strengthOther" value="<%=strengthOther%>" ></p>
+            <input type="text" id="strength other" name="strengthOther" value="<%=dbUser.strengthOther%>" ></p>
           </div>
         </div>
         <div class="row">
@@ -80,23 +58,12 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <input type="hidden" name="allergy[dogs]" value="0">
-            <input type="hidden" name="allergy[cats]" value="0">
-            <input type="hidden" name="allergy[meeting]" value="0">
-            <input type="hidden" name="allergy[dell]" value="0">
-            <input type="hidden" name="allergy[social]" value="0">
-            <p><input type="checkbox" id="allergy dogs" name="allergy[dogs]" value="1" <%=allergyArray[0]%>>
-            <label for="qualms none">Furry angels with wet, boopable noses and wagging tails</label></p>
-            <p><input type="checkbox" id="allergy cats" name="allergy[cats]" value="1" <%=allergyArray[1]%>>
-            <label for="qualm all">Furry, bitey angels with claws and whiskers</label></p>
-            <p><input type="checkbox" id="allergy meeting" name="allergy[meeting]" value="1" <%=allergyArray[2]%>>
-            <label for="allergy meeting">Excruciating meetings that are so repetitive and so endless I start to wonder if I am <i>living</i> in a recursive function</label></p>
-            <p><input type="checkbox" id=" allergy dell" name="allergy[dell]" value="1" <%=allergyArray[3]%>>
-            <label for="allergy dell">Dell computers</label></p>
-            <p><input type="checkbox" id="allergy social" name="allergy[social]" value="1" <%=allergyArray[4]%>>
-            <label for="allergy social">Social conservatives</label></p>
+            <% traits.allergy.forEach(allergy => { %>
+              <p><input type="checkbox" id='<%=allergy.id%>' name="allergy[]" value='<%=allergy.id%>' <% if (dbUser.allergy) { %> <%= (dbUser.allergy.indexOf(allergy.id) > -1) ? 'checked' : '' %> <% } %>>
+              <label for='<%=allergy.id%>'><%=allergy.label%> </label></p>
+            <% }); %> 
             <p><label for="allergy other">Other:</label>
-            <input type="text" id="allergy other" name="allergyOther" value="<%=allergyOther%>" ></p>
+            <input type="text" id="allergy other" name="allergyOther" value="<%=dbUser.allergyOther%>" ></p>
           </div>
         </div>
         <div class="row">
@@ -106,20 +73,12 @@
         </div> 
         <div class="row">
           <div class="col-md-12">
-            <input type="hidden" name="qualm[none]" value="0">
-            <input type="hidden" name="qualm[all]" value="0">
-            <input type="hidden" name="qualm[law]" value="0">
-            <input type="hidden" name="qualm[caught]" value="0">
-            <p><input type="checkbox" id="qualm none" name="qualm[none]" value="1" <%=qualmArray[0]%>>
-            <label for="qualm none">I have none</label></p>
-            <p><input type="checkbox" id="qualm all" name="qualm[all]" value="1" <%=qualmArray[1]%>>
-            <label for="qualm all">I have all of them</label></p>
-            <p><input type="checkbox" id="qualm law" name="qualm[law]" value="1" <%=qualmArray[2]%>>
-            <label for="qualm law">I'll do anything short of breaking the law</label></p>
-            <p><input type="checkbox" id="qualm caught" name="qualm[caught]" value="1" <%=qualmArray[3]%>>
-            <label for="qualm caught">I'll do anything short of getting caught >:)</label></p> 
+            <% traits.qualm.forEach(qualm => { %>
+              <p><input type="checkbox" id='<%=qualm.id%>' name="qualm[]" value='<%=qualm.id%>' <% if (dbUser.qualm) { %> <%= (dbUser.qualm.indexOf(qualm.id) > -1) ? 'checked' : '' %> <% } %>>
+              <label for='<%=qualm.id%>'><%=qualm.label%> </label></p>
+            <% }); %> 
             <p><label for="qualm other">Other:</label>
-            <input type="text" id="qualm other" name="qualmOther" value="<%=qualmOther%>" ></p>
+            <input type="text" id="qualm other" name="qualmOther" value="<%=dbUser.qualmOther%>" ></p>
           </div>
         </div>
         <div class="row">
@@ -129,17 +88,12 @@
         </div> 
         <div class="row">
           <div class="col-md-12">
-            <input type="hidden" name="spirit[yas]" value="0">
-            <input type="hidden" name="spirit[none]" value="0">
-            <input type="hidden" name="spirit[whatever]" value="0">
-            <p><input type="checkbox" id="spirit yas" name="spirit[yas]" value="1" <%=spiritArray[0]%>>
-            <label for="spirit yas">*screams and rips shirt* <b>YASSS,</b> <i>(insert company name here)</i> <b>RULES!!!</b></label></p>
-            <p><input type="checkbox" id="spirit none" name="spirit[none]" value="1" <%=spiritArray[1]%>>
-            <label for="spirit none">0% interested</label></p>
-            <p><input type="checkbox" id="spirit whatever" name="spirit[whatever]" value="1" <%=spiritArray[2]%>>
-            <label for="spirit[whatever]">W/e, just give me free stuff</label></p>
+            <% traits.spirit.forEach(spirit => { %>
+              <p><input type="checkbox" id='<%=spirit.id%>' name="spirit[]" value='<%=spirit.id%>' <% if (dbUser.spirit) { %> <%= (dbUser.spirit.indexOf(spirit.id) > -1) ? 'checked' : '' %> <% } %>>
+              <label for='<%=spirit.id%>'><%=spirit.label%> </label></p>
+            <% }); %> 
             <p><label for="spirit other">Other:</label>
-            <input type="text" id="spirit other" name="spiritOther" value="<%=spiritOther%>"></p>
+            <input type="text" id="spirit other" name="spiritOther" value="<%=dbUser.spiritOther%>"></p>
             <p><input type='submit' value='Submit'/></p>
             <input type='hidden' name="_csrf" value="<%= csrftoken %>"/>
           </div>

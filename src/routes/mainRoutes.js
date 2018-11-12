@@ -1,34 +1,32 @@
 'use strict'; 
-const express = require('express');
-const mainController = require('../controllers/mainController');
-const { body } = require('express-validator/check'); 
+import express from 'express';
+import * as main from '../controllers/mainController';
+import {body} from 'express-validator/check'; 
 const mainRouter = express.Router();  
 
-function router() {
-  const { getIndex, postIndex, getProfile, editProfile, postProfile, getDirectory, getMessages} = mainController(); 
+export function mrouter() {
   mainRouter.route('/')
-    .get(getIndex) 
+    .get(main.getIndex) 
     .post([
-      body('message', 'Empty Message Field').not().isEmpty().trim().escape(), 
-      body('fullname', 'Empty Name Field').not().isEmpty().trim().escape(),
+      body('message', 'Empty Message Field').not().isEmpty().trim(), 
+      body('fullname', 'Empty Name Field').not().isEmpty().trim(),
       body('email', 'Invalid Email').isEmail().normalizeEmail()
-      ], postIndex);
+      ], main.postIndex);
   mainRouter.route('/profile/:username')
-      .get(getProfile);   
+      .get(main.getProfile);   
   mainRouter.route('/editprofile')
-      .get(editProfile)
+      .get(main.editProfile)
       .post([ 
-        body('weaknessOther').trim().escape(),
-        body('strengthOther').trim().escape(),
-        body('allergyOther').trim().escape(),
-        body('qualmOther').trim().escape(),
-        body('spiritOther').trim().escape(),], postProfile); 
+        body('weaknessOther').trim(),
+        body('strengthOther').trim(),
+        body('allergyOther').trim(),
+        body('qualmOther').trim(),
+        body('spiritOther').trim()], main.postProfile); 
   mainRouter.route('/directory')
-      .get(getDirectory); 
+      .get(main.getDirectory); 
   mainRouter.route('/chat')
-      .get(getMessages); 
+      .get(main.getMessages); 
   return mainRouter; 
 }
 
 
-module.exports = router; 

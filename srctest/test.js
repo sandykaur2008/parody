@@ -1,13 +1,12 @@
 'use strict';
-const server = require('../dest/app'), 
-    expect = require('chai').expect, 
-    request = require('request'), 
-    nodemailer = require('nodemailer'),
-    { MongoClient } = require('mongodb'), 
-    mockTransport = require('nodemailer-mock-transport'); 
-    const supertest = require('supertest'); 
-    const url = 'mongodb://localhost:27017'; 
-    const dbName = 'parodyTest';
+
+import {server} from '../dest/app'; 
+import getDB from '../dest/config/db';  
+import {expect} from 'chai'; 
+import request from 'request'; 
+import nodemailer from 'nodemailer'; 
+import mockTransport from 'nodemailer-mock-transport'; 
+import supertest from 'supertest'; 
 
 describe('server response', () => {
 
@@ -172,8 +171,7 @@ describe('check validation (valid entries)', () => {
 
   it ('should reset password via email link', (done) => {
     async function findUser() {
-        var client = await MongoClient.connect(url); 
-        const db = client.db(dbName); 
+        const db = await getDB(); 
         const col = db.collection('users'); 
         const user = await col.findOne({email: "test@example.com"});          
         return user.resetToken; 
@@ -186,7 +184,6 @@ describe('check validation (valid entries)', () => {
              console.log(err); 
            }
            expect(res.statusCode).to.equal(302);
-           console.log(res.body); 
            expect(res.body).to.include("Redirecting to /");
            done();   
         }); 
@@ -220,43 +217,7 @@ describe('check profile/directory/chat rendering & editing', () => {
 
   it('should redirect once update profile I', (done) => {
     const form = {
-      weakness: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ], 
-      weaknessOther: "test weakness", 
-      strength: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ],
-      strengthOther: "",
-      allergy: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ],
-      allergyOther: "",
-      qualm: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-      ],
-      qualmOther: "", 
-      spirit: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-      ],
-      spiritOther: "",
+      weaknessOther: "test weakness" 
     }; 
     authenticatedUser
     .post('/editprofile')
@@ -284,43 +245,8 @@ describe('check profile/directory/chat rendering & editing', () => {
 
   it('should redirect once update profile II', (done) => {
     const form = {
-      weakness: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ], 
       weaknessOther: "", 
-      strength: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ],
-      strengthOther: "test strength",
-      allergy: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null]
-      ],
-      allergyOther: "",
-      qualm: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-        ["0", null],
-      ],
-      qualmOther: "", 
-      spirit: [
-        ["0", null],
-        ["0", null],
-        ["0", null],
-      ],
-      spiritOther: "",
+      strengthOther: "test strength" 
     }; 
     authenticatedUser
     .post('/editprofile')

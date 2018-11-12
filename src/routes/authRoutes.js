@@ -1,15 +1,13 @@
 'use strict'; 
-const express = require('express');
-const authController = require('../controllers/authController'); 
-const passport = require('passport'); 
-const { body } = require('express-validator/check'); 
+import express from 'express';
+import * as auth from '../controllers/authController'; 
+import passport from 'passport'; 
+import { body } from 'express-validator/check'; 
 const authRouter = express.Router(); 
 
-function router() {
-  const { getRegister, postRegister, getLogin,
-     getLogout, getForgot, postForgot, getReset, postReset } = authController(); 
+export function arouter() {
   authRouter.route('/register')
-    .get(getRegister) 
+    .get(auth.getRegister) 
     .post([
       body('username', 'Empty Username Field').not().isEmpty().trim().escape(), 
       body('email', 'Invalid Email').not().isEmpty().isEmail().normalizeEmail(), 
@@ -21,27 +19,27 @@ function router() {
                 return value;
               }
             })
-      ], postRegister); 
+      ], auth.postRegister); 
   authRouter.route('/login')
-   .get(getLogin) 
+   .get(auth.getLogin) 
    .post(passport.authenticate('local', {
      failureRedirect: '/auth/login',
      failureFlash: true
     }), 
       function (req, res) {
-        var username = req.user.username;
-        var successRedirect = '/profile/' + username; 
+        const username = req.user.username;
+        const successRedirect = '/profile/' + username; 
         res.redirect(successRedirect); 
       });  
   authRouter.route('/logout')
-    .get(getLogout); 
+    .get(auth.getLogout); 
   authRouter.route('/forgot')
-    .get(getForgot)
+    .get(auth.getForgot)
     .post([
       body('email', 'Invalid Email').not().isEmpty().isEmail().normalizeEmail()
-    ], postForgot); 
+    ], auth.postForgot); 
   authRouter.route('/reset/:token')
-    .get(getReset)
+    .get(auth.getReset)
     .post([
       body('password', 'Password must be at least 5 characters').isLength({ min: 5}).trim().escape()
           .custom((value, {req, loc, path}) => {
@@ -51,8 +49,7 @@ function router() {
               return value;
             }
           })
-      ], postReset); 
+      ], auth.postReset); 
   return authRouter; 
-  } 
+} 
 
-module.exports = router; 

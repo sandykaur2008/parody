@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <% include partials/head %>
+  <% include partials/head %>  
   <body>
     <% include partials/header %>
     <main class="container">
       <br></br> 
       <div class="row">
         <div class="col-md-12">
-          <img class="center" src='<%=image%>' alt="avatar">
+          <img class="center" src='<%=dbUser.imagePath%>' alt="avatar">
         </div>
       </div>   
       <div class="row">
         <div class="col-md-12">
-          <h1 class="center"><%= relevantUser.username %></h1>
+          <h1 class="center"><%= dbUser.username %></h1>
         </div>
       </div> 
       <div class="row">
           <div class="col-md-12 center">
-            <% if (user.username === relevantUser.username) { %>
+            <% if (user.username === dbUser.username) { %>
               <a class="center" href="/editprofile/">Edit Profile</a>
             <% } %> 
           </div>
@@ -29,24 +29,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (weakness[0][1]) { %>
-            <p>I am physically incapable of being on time</p>
+          <% if (dbUser.weakness) { %> 
+            <% traits.weakness.forEach(weakness => { %>
+              <% if (dbUser.weakness.indexOf(weakness.id) > -1) { %>  
+                <p><%=weakness.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.weaknessOther) { %> 
+            <p><%=dbUser.weaknessOther%></p>
           <% } %> 
-          <% if (weakness[1][1]) { %>
-            <p>I am super sensitive and will cry in your arms @ some point</p>
-          <% } %> 
-      <% if (weakness[2][1]) { %>
-            <p>I am impatient</p>
-          <% } %> 
-          <% if (weakness[3][1]) { %>
-            <p>I never want to do anything else ever again for as long as I live</p>
-          <% } %> 
-          <% if (weakness[4][1]) { %>
-            <p>I never want to speak to anyone else ever again for as long as I live</p>
-          <% } %> 
-          <% if (weaknessOther) { %>
-            <p><%=weaknessOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -56,24 +48,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (strength[0][1]) { %>
-            <p>I'm a goddamn genius</p>
+          <% if (dbUser.strength) { %>
+            <% traits.strength.forEach(strength => { %>
+              <% if (dbUser.strength.indexOf(strength.id) > -1) { %>  
+                <p><%=strength.label%></p>
+              <% } %>  
+            <% }); %>
           <% } %> 
-          <% if (strength[1][1]) { %>
-            <p>I'm a thick-skinned sonofabitch</p>
+          <% if (dbUser.strengthOther) { %> 
+            <p><%=dbUser.strengthOther%></p>
           <% } %> 
-          <% if (strength[2][1]) { %>
-            <p>No work-life balance - only work</p>
-          <% } %> 
-          <% if (strength[3][1]) { %>
-            <p>Your parents would love me</p>
-          <% } %> 
-          <% if (strength[4][1]) { %>
-            <p>I am great at talking at people, i.e. would make a good corporate drone someday</p>
-          <% } %> 
-          <% if (strengthOther) { %>
-            <p><%=strengthOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -83,24 +67,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (allergy[0][1]) { %>
-            <p>Furry angels with wet, boopable noses and wagging tails</p>
+          <% if (dbUser.allergy) { %>
+            <% traits.allergy.forEach(allergy => { %>
+              <% if (dbUser.allergy.indexOf(allergy.id) > -1) { %>
+                <p><%= allergy.label %></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.allergyOther) { %> 
+            <p><%=dbUser.allergyOther%></p>
           <% } %> 
-          <% if (allergy[1][1]) { %>
-            <p>Furry, bitey angels with claws and whiskers</p>
-          <% } %> 
-          <% if (allergy[2][1]) { %>
-            <p>Excruciating meetings that are so repetitive and so endless I start to wonder if I am <i>living</i> in a recursive function</p>
-          <% } %> 
-          <% if (allergy[3][1]) { %>
-            <p>Dell computers</p>
-          <% } %> 
-          <% if (allergy[4][1]) { %>
-            <p>Social conservatives</p>
-          <% } %> 
-          <% if (allergyOther) { %>
-            <p><%=allergyOther%> </p>
-          <% } %>
         </div>
       </div> 
       <div class="row">
@@ -110,21 +86,16 @@
       </div> 
       <div class="row">
         <div class="col-md-12">
-          <% if (qualm[0][1]) { %>
-            <p>I have none</p>
+          <% if (dbUser.qualm) { %>
+            <% traits.qualm.forEach(qualm => { %>
+              <% if (dbUser.qualm.indexOf(qualm.id) > -1) { %>  
+                <p><%=qualm.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.qualmOther) { %> 
+            <p><%=dbUser.qualmOther%></p>
           <% } %> 
-          <% if (qualm[1][1]) { %>
-            <p>I have all of them</p>
-          <% } %> 
-          <% if (qualm[2][1]) { %>
-            <p>I'll do anything short of breaking the law</p>
-          <% } %> 
-          <% if (qualm[3][1]) { %>
-            <p>I'll do anything short of getting caught >:)</p>
-          <% } %> 
-          <% if (qualmOther) { %>
-            <p><%=qualmOther%> </p>
-          <% } %>
         </div>
       </div>
       <div class="row">
@@ -134,18 +105,16 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <% if (spirit[0][1]) { %>
-            <p>*screams and rips shirt* <b>YASSS,</b> <i>(insert company name here)</i> <b>RULES!!!</b></p>
+          <% if (dbUser.spirit) { %>
+            <% traits.spirit.forEach(spirit => { %>
+              <% if (dbUser.spirit.indexOf(spirit.id) > -1) { %>  
+                <p><%=spirit.label%></p>
+              <% } %>  
+            <% }); %>
+          <% } %>  
+          <% if (dbUser.spiritOther) { %> 
+            <p><%=dbUser.spiritOther%></p>
           <% } %> 
-          <% if (spirit[1][1]) { %>
-            <p>0% interested</p>
-          <% } %> 
-          <% if (spirit[2][1]) { %>
-            <p>W/e, just give me free stuff</p>
-          <% } %> 
-          <% if (spiritOther) { %>
-            <p><%=spiritOther%> </p>
-          <% } %>
         </div>
       </div> 
     </main>
