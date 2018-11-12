@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development node dest/app.js",
     "preinstall": "sass public/scss/main.scss public/css/main.css && babel src -d dest --presets env", 
     "test": "NODE_ENV=test mocha --timeout 150000 desttest/test.js --exit",
-    "build:testjs": "babel srctest -d desttest --presets env",
+    "build:testjs": "babel srctest -d desttest --presets env" 
   },
   "author": "Satinder Kaur",
   "license": "",
