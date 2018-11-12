@@ -68,7 +68,7 @@ export function postForgot(req, res) {
     if (results === null) {
       req.flash('msg', 'Email not registered');
       return res.redirect('/auth/forgot');
-    } else  {auth.smtpTrans.sendMail(results, (error, info) => {
+    } else  {auth.smtpTrans().sendMail(results, (error, info) => {
       if (error) {
         req.flash('msg', 'Error Occured');
         console.log(error); 
@@ -110,7 +110,7 @@ export function postReset(req, res) {
       req.flash('msg', 'Password reset token is invalid or has expired.');
       return res.redirect('/auth/forgot');
     } else {
-      auth.smtpTrans.sendMail(results, (error, info) => {
+      auth.smtpTrans().sendMail(results, (error, info) => {
         if (error) {
           req.flash('msg', 'Error Occured');
           console.log(error); 

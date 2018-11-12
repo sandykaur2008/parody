@@ -1,4 +1,12 @@
 'use strict';   
+import dotenv from 'dotenv';
+dotenv.config(); 
+const env = process.env.NODE_ENV; 
+if (env === "TEST") {
+  dotenv.config({ path:"/Users/sandykaur/Documents/developing/projects/parody/.env.test"}); 
+} else if (env === "DEVELOPMENT"){
+  dotenv.config({path: "/Users/sandykaur/Documents/developing/projects/parody/.env.dev"}); 
+} 
 import express from 'express';
 const app = express(); 
 import bodyParser from 'body-parser'; 
@@ -14,21 +22,12 @@ const storage = multer.diskStorage({
   }); 
 import session from 'express-session';
 import flash from 'connect-flash'; 
-import dotenv from 'dotenv';
 import helmet from 'helmet'; 
 import cookieParser from 'cookie-parser'; 
 import {mrouter} from './routes/mainRoutes'; 
 const mainRouter = mrouter(); 
 import {arouter} from './routes/authRoutes';  
 const authRouter = arouter(); 
-
-dotenv.config(); 
-const env = process.env.NODE_ENV; 
-if (env === "TEST") {
-  dotenv.config({ path:"/Users/sandykaur/Documents/developing/projects/parody/.env.test"});  
-} else if (env === "DEVELOPMENT"){
-  dotenv.config({path: "/Users/sandykaur/Documents/developing/projects/parody/.env.dev"}); 
-} 
 const port = process.env.PORT; 
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json()); 

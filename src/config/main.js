@@ -1,11 +1,9 @@
 'use strict'; 
 import getDB from '../config/db'; 
 import nodemailer from 'nodemailer'; 
-
-export const smtpTrans = nodemailer.createTransport({
+export const smtpTrans = () => nodemailer.createTransport({
   host: process.env.MAIL_SERVER,  
   port: process.env.MAIL_PORT,
-  //secure: process.env['SECURE_' + envString],
   auth: {
     user: process.env.MAIL_USERNAME,
     pass: process.env.MAIL_PASSWORD

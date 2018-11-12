@@ -28,7 +28,7 @@ export async function addUser({ username, password, email }) {
     }
 }
 
-export const smtpTrans = nodemailer.createTransport({
+export const smtpTrans = () => nodemailer.createTransport({
   host: process.env.MAIL_SERVER,  
   port: process.env.MAIL_PORT,
   //secure: process.env['SECURE_' + envString],

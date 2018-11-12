@@ -27,7 +27,7 @@ export function postIndex(req, res) {
     subject: 'Parody site message!',
     text: `${req.body.fullname} (${req.body.email}) says: ${req.body.message}`
   }; 
-  main.smtpTrans.sendMail(mailOpts, (error, info) => {
+  main.smtpTrans().sendMail(mailOpts, (error, info) => {
       if (error) {
         req.flash('msg', 'Error Occured');
         console.log(error); 
