@@ -2,10 +2,6 @@
 import * as main from '../config/main';
 import * as traits from '../config/traits'; 
 import { validationResult } from 'express-validator/check'; 
-import dotenv from 'dotenv';
-dotenv.config();  
-const env = process.env.NODE_ENV; 
-const envString = env.toUpperCase(); 
 
 export function getIndex(req, res) {
   res.render('index', {
@@ -27,7 +23,7 @@ export function postIndex(req, res) {
   }
   const mailOpts = {
     from: req.body.email, 
-    to: process.env['MAIL_USERNAME_' + envString],
+    to: process.env.MAIL_USERNAME,
     subject: 'Parody site message!',
     text: `${req.body.fullname} (${req.body.email}) says: ${req.body.message}`
   }; 

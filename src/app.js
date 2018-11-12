@@ -22,10 +22,14 @@ const mainRouter = mrouter();
 import {arouter} from './routes/authRoutes';  
 const authRouter = arouter(); 
 
-dotenv.config();  
+dotenv.config(); 
 const env = process.env.NODE_ENV; 
-const envString = env.toUpperCase(); 
-const port = process.env['PORT_' + envString]; 
+if (env === "TEST") {
+  dotenv.config({ path:"/Users/sandykaur/Documents/developing/projects/parody/.env.test"});  
+} else if (env === "DEVELOPMENT"){
+  dotenv.config({path: "/Users/sandykaur/Documents/developing/projects/parody/.env.dev"}); 
+} 
+const port = process.env.PORT; 
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json()); 
 app.use(cookieParser()); 
@@ -37,7 +41,7 @@ app.use(session({
 
 app.use(multer({storage: storage}).single('avatar')); 
 app.use(
-  envString === 'TEST' ?
+  env === 'TEST' ?
   csrf({ ignoreMethods: ['GET', 'POST']}): 
   csrf()
 ); 

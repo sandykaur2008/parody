@@ -2,7 +2,7 @@ env
 node_modules
 parody.code-workspace 
 server-dest
-.env
+.env.dev
 .env.test 
 dest/config/ 
 dest/routes/ 

@@ -1,18 +1,14 @@
 'use strict'; 
 import getDB from '../config/db'; 
 import nodemailer from 'nodemailer'; 
-import dotenv from 'dotenv';
-dotenv.config();  
-const env = process.env.NODE_ENV; 
-const envString = env.toUpperCase(); 
 
 export const smtpTrans = nodemailer.createTransport({
-  host: process.env['MAIL_SERVER_' + envString],  
-  port: process.env['MAIL_PORT_' + envString],
+  host: process.env.MAIL_SERVER,  
+  port: process.env.MAIL_PORT,
   //secure: process.env['SECURE_' + envString],
   auth: {
-    user: process.env['MAIL_USERNAME_' + envString],
-    pass: process.env['MAIL_PASSWORD_' + envString]
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD
   }
 });
 
