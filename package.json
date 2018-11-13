@@ -5,7 +5,7 @@
   "main": "dest/app.js",
   "scripts": {
     "start": "NODE_ENV=DEVELOPMENT node dest/app.js",
-    "postinstall": "sass public/scss/main.scss public/css/main.css && babel src -d dest --presets env", 
+    "postinstall": "sass public/scss/main.scss public/css/main.css && babel src -d dest --presets env",
     "test": "NODE_ENV=TEST mocha --timeout 150000 desttest/test.js --exit",
     "build:testjs": "babel srctest -d desttest --presets env",
     "build:js": "babel src -d dest --presets env"
@@ -14,8 +14,6 @@
   "license": "",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
@@ -26,6 +24,8 @@
     "supertest": "^3.3.0"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
