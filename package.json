@@ -2,7 +2,7 @@
   "name": "parody",
   "version": "1.0.0",
   "description": "parody of linkedin",
-  "main": "app.js",
+  "main": "dest/app.js",
   "scripts": {
     "start": "NODE_ENV=DEVELOPMENT node dest/app.js",
     "preinstall": "sass public/scss/main.scss public/css/main.css && babel src -d dest --presets env", 
