@@ -1,5 +1,6 @@
 'use strict'; 
 import * as auth from '../config/auth';
+import {mailer} from '../config/mailer'; 
 import { validationResult } from 'express-validator/check';  
 
 export function getRegister(req, res) {
@@ -68,7 +69,7 @@ export function postForgot(req, res) {
     if (results === null) {
       req.flash('msg', 'Email not registered');
       return res.redirect('/auth/forgot');
-    } else  {auth.smtpTrans().sendMail(results, (error, info) => {
+    } else  {mailer().sendMail(results, (error, info) => {
       if (error) {
         req.flash('msg', 'Error Occured');
         console.log(error); 
@@ -110,7 +111,7 @@ export function postReset(req, res) {
       req.flash('msg', 'Password reset token is invalid or has expired.');
       return res.redirect('/auth/forgot');
     } else {
-      auth.smtpTrans().sendMail(results, (error, info) => {
+      mailer().sendMail(results, (error, info) => {
         if (error) {
           req.flash('msg', 'Error Occured');
           console.log(error); 

@@ -1,5 +1,6 @@
 'use strict';
 import * as main from '../config/main';
+import {mailer} from '../config/mailer'; 
 import * as traits from '../config/traits'; 
 import { validationResult } from 'express-validator/check'; 
 
@@ -27,7 +28,7 @@ export function postIndex(req, res) {
     subject: 'Parody site message!',
     text: `${req.body.fullname} (${req.body.email}) says: ${req.body.message}`
   }; 
-  main.smtpTrans().sendMail(mailOpts, (error, info) => {
+  mailer().sendMail(mailOpts, (error, info) => {
       if (error) {
         req.flash('msg', 'Error Occured');
         console.log(error); 

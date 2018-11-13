@@ -2,7 +2,6 @@
 import getDB from './db'; 
 import bcrypt from 'bcrypt'; 
 import crypto from 'crypto'; 
-import nodemailer from 'nodemailer'; 
 
 export async function addUser({ username, password, email }) {
   try {
@@ -27,16 +26,6 @@ export async function addUser({ username, password, email }) {
       console.log(err); 
     }
 }
-
-export const smtpTrans = () => nodemailer.createTransport({
-  host: process.env.MAIL_SERVER,  
-  port: process.env.MAIL_PORT,
-  //secure: process.env['SECURE_' + envString],
-  auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD
-  }
-});
 
 export async function sendReset({email}, {host}) {
   try {
