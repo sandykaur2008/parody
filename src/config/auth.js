@@ -44,7 +44,7 @@ export async function sendReset({email}, {host}) {
         );
 
         const mailOpts = {
-          from: "parody@reset.com", 
+          from: "letsbehonest.parody@gmail.com", 
           to: user.email,
           subject: 'Parody site reset!',
           text: 'You are receiving this because you have requested the reset of the password for your account.\n\n' +
