@@ -27,6 +27,7 @@ export async function addUser({ username, password, email }) {
     }
 }
 
+/* Send password reset email with generated token */
 export async function sendReset({email}, {host}) {
   try {
     const db = await getDB()
@@ -59,6 +60,7 @@ export async function sendReset({email}, {host}) {
     }
   }  
 
+/* Check if reset token is still valid */
 export async function reset({token}) {
   try {
     const db = await getDB(); 
@@ -75,6 +77,7 @@ export async function reset({token}) {
     }
 } 
 
+/* Reset password if token is valid */ 
 export async function doReset({password}, {token}) {
   try {
     const db = await getDB() 

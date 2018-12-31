@@ -1,5 +1,5 @@
 'use strict'; 
-/*traits to help build user profile*/
+/* Traits to help build user profile */
 export const allergy = [
   {
     id: 'dogs',

@@ -1,5 +1,5 @@
 'use strict'; 
-/*Helper functions for socket.js*/
+/* Helper functions for socket.js */
 import getDB from './db'; 
 
 export async function openChatCol() {
