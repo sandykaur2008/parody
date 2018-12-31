@@ -1,5 +1,5 @@
 # Project Title
-This project is called "Let's be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha.  
+This project is called "Let's be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha. Deployed with Heroku at https://sandysparody.herokuapp.com/.
 
 # Getting Started
 To contribute:
