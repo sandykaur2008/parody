@@ -96,7 +96,7 @@ export async function doReset({password}, {token}) {
               from: "parody@reset.com", 
               to: user.email,
               subject: 'Parody site reset!',
-              text: 'This is confirmation that your password has been reset'
+              text: 'This is confirmation that your password has been reset. Please do not reply to this email.'
             }; 
         return mailOpts;  
       } 

@@ -1,5 +1,5 @@
-# Project Title
-This project is called "Let's be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha. Frontend built with Sass and Bootstrap. Deployed with Heroku at https://sandysparody.herokuapp.com/.
+# Sandy's Parody: "Let's Be Honest" 
+This project is called "Let's Be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha. Frontend built with Sass and Bootstrap. Deployed with Heroku at https://sandysparody.herokuapp.com/.
 
 # Getting Started
 To contribute:
@@ -16,7 +16,7 @@ Aside from a working browser, you will also need:
 - Sass: https://sass-lang.com/install 
 - the dependencies in package.json
 
-## To install dependencies in requirements.txt
+## To install dependencies in package.json
 Make sure you're in root directory of repo and execute:
 
 ```npm install```
@@ -29,7 +29,7 @@ To run Sass from the command line, make sure you're in root directory of repo an
 ## To build files via babel
 Make sure you're in root directory of repo and execute:
 
-```npm build:js ```
+```npm run build:js ```
 
 ## To actually run website once repo cloned, css compiled, and dependencies installed
 - Navigate to root directory
