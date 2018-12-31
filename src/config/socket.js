@@ -1,4 +1,5 @@
 'use strict';
+/*This module handles chat functionality, with getchats.js*/
 import socketio from 'socket.io';
 import {openChatCol, getChatCol} from './getchats';
 const usersOnline = []; 

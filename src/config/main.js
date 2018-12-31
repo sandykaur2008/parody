@@ -1,4 +1,5 @@
 'use strict'; 
+/*non-auth functions*/
 import getDB from '../config/db'; 
 
 export async function renderProfile({username}) {
