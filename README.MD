@@ -1,5 +1,5 @@
 # Sandy's Parody: "Let's Be Honest" 
-This project is called "Let's Be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha. Frontend built with Sass and Bootstrap. Deployed with Heroku at https://sandysparody.herokuapp.com/.
+This project is called "Let's Be Honest" and it's a parody of LinkedIn! It has also been a way for me to practice developing with MongoDB, Express, & Node.js, along with socket.io, passport, ejs, and mocha. Frontend built with Sass and Bootstrap. Dockerized and deployed with Amazon Fargate at https://spk.letsbehonest-parody.com.
 
 # Getting Started
 To contribute:
@@ -52,4 +52,3 @@ Satinder Kaur
 # Acknowledgments
 Thanks, @github/markalexandercastillo, for your help in getting the chat working the way I like it!
 :relaxed: 
-
